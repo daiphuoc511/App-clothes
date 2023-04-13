@@ -19,7 +19,7 @@ class HomeController extends GetxController {
 
   void changePage(int index) {
     currentIndex.value = index;
-    Get.toNamed(pages[index], id: 1);
+    Get.offAndToNamed(pages[index], id: 1);
   }
 
   Route? onGenerateRoute(RouteSettings settings) {
