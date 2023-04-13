@@ -1,4 +1,5 @@
 import 'package:clothes_app/app/modules/onboarding/controllers/mainhome_controller.dart';
+import 'package:clothes_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,10 +12,10 @@ class MainHomeView extends GetView<MainHomeController> {
       appBar: AppBar(
         title: const Text('Trang chủ', style: TextStyle(color: Colors.black)),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         actions: [
           Padding(
-              padding: const EdgeInsets.all(0),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 width: 50,
                 height: 50,
@@ -24,12 +25,15 @@ class MainHomeView extends GetView<MainHomeController> {
                 ),
               ))
         ],
+        bottomOpacity: 0.0,
+        elevation: 0.0,
       ),
       body: buildMainHomePage(context),
     );
   }
 
   buildMainHomePage(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
     return Container(
       padding: const EdgeInsets.all(10),
       child: ListView(
@@ -97,15 +101,35 @@ class MainHomeView extends GetView<MainHomeController> {
             crossAxisCount: 2,
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.all(8),
-                color: Colors.teal[100],
-                child: const Text("He'd have you all unravel at the"),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                color: Colors.teal[200],
-                child: const Text('Heed not the rabble'),
-              ),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.white,
+                  child: InkWell(
+                    highlightColor: const Color.fromARGB(255, 124, 125, 126),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: screenSize.width,
+                          decoration: const BoxDecoration(
+                              color: Color.fromARGB(255, 255, 245, 236)),
+                          child: Image.asset(
+                            'assets/images/Deco1.png',
+                            width: screenSize.width,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        const Text('QUần chi chi đó'),
+                        const SizedBox(height: 5),
+                        const Text(
+                          '500000',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 244, 102, 4)),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      Get.toNamed(Routes.PRODUCTDETAIL);
+                    },
+                  )),
             ],
           ),
         ],

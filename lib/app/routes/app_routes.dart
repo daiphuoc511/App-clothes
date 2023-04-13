@@ -10,6 +10,7 @@ abstract class Routes {
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
   static const CART = _Paths.CART;
   static const PROFILE = _Paths.PROFILE;
+  static const PRODUCTDETAIL = _Paths.PRODUCTDETAIL;
 }
 
 abstract class _Paths {
@@ -20,4 +21,5 @@ abstract class _Paths {
   static const SPLASH_SCREEN = '/splash-screen';
   static const CART = '/cart';
   static const PROFILE = '/profile';
+  static const PRODUCTDETAIL = '/product-detail';
 }
