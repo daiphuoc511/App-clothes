@@ -20,7 +20,7 @@ class SplashScreenController extends GetxController {
     isDartTheme.value = store.read('themeMode');
 
     //requestCameraPermission();
-    Future.delayed(Duration(seconds: 3), () async {
+    Future.delayed(const Duration(seconds: 3), () async {
       Get.offAndToNamed(Routes.HOME);
     });
   }

@@ -1,3 +1,9 @@
+import 'package:clothes_app/app/modules/onboarding/bindings/cart_binding.dart';
+import 'package:clothes_app/app/modules/onboarding/bindings/mainhome_binding.dart';
+import 'package:clothes_app/app/modules/onboarding/bindings/profile_binding.dart';
+import 'package:clothes_app/app/modules/onboarding/views/cart_view.dart';
+import 'package:clothes_app/app/modules/onboarding/views/mainhome_view.dart';
+import 'package:clothes_app/app/modules/onboarding/views/profile_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/home/bindings/home_binding.dart';
@@ -23,6 +29,11 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
+      name: _Paths.MAINHOME,
+      page: () => MainHomeView(),
+      binding: MainHomeBinding(),
+    ),
+    GetPage(
       name: _Paths.LOGIN,
       page: () => LoginView(),
       binding: LoginBinding(),
@@ -36,6 +47,16 @@ class AppPages {
       name: _Paths.SPLASH_SCREEN,
       page: () => SplashScreenView(),
       binding: SplashScreenBinding(),
-    ),   
+    ),
+    GetPage(
+      name: _Paths.CART,
+      page: () => CartView(),
+      binding: CartBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE,
+      page: () => ProfileView(),
+      binding: ProfileBinding(),
+    ),
   ];
 }

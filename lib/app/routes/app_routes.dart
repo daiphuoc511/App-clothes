@@ -4,16 +4,20 @@ part of 'app_pages.dart';
 abstract class Routes {
   Routes._();
   static const HOME = _Paths.HOME;
+  static const MAINHOME = _Paths.MAINHOME;
   static const LOGIN = _Paths.LOGIN;
   static const SIGNUP = _Paths.SIGNUP;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
-  //static const WEBVIEW = _Paths.WEBVIEW;
+  static const CART = _Paths.CART;
+  static const PROFILE = _Paths.PROFILE;
 }
 
 abstract class _Paths {
   static const HOME = '/home';
+  static const MAINHOME = '/mainhome';
   static const LOGIN = '/login';
   static const SIGNUP = '/signup';
   static const SPLASH_SCREEN = '/splash-screen';
-
+  static const CART = '/cart';
+  static const PROFILE = '/profile';
 }
