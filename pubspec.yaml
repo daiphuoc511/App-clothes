@@ -2,10 +2,10 @@ name: clothes_app
 version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
-environment: 
-  sdk: '>=2.17.5 <3.0.0'
+environment:
+  sdk: ">=2.17.5 <3.0.0"
 
-dependencies: 
+dependencies:
   cupertino_icons: ^1.0.2
   get: 4.6.5
   global_configuration: ^2.0.0-nullsafety.1
@@ -17,17 +17,17 @@ dependencies:
   google_fonts: 3.0.1
   permission_handler: 10.2.0
   intl: 0.18.0
-  flutter: 
+  flutter_html: ^3.0.0-alpha.6
+  flutter:
     sdk: flutter
 
-dev_dependencies: 
+dev_dependencies:
   flutter_lints: 2.0.1
-  flutter_test: 
+  flutter_test:
     sdk: flutter
 
-flutter: 
-  assets: 
+flutter:
+  assets:
     - assets/
     - assets/images/
   uses-material-design: true
-

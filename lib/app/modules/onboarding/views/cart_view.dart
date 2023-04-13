@@ -13,7 +13,9 @@ class CartView extends GetView<CartController> {
         appBar: AppBar(
           title: const Text('Giỏ hàng', style: TextStyle(color: Colors.black)),
           centerTitle: true,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
+          bottomOpacity: 0.0,
+          elevation: 0.0,
         ),
         body: buildCartPage(context));
   }
