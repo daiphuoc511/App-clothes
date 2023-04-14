@@ -1,30 +1,22 @@
-import 'package:clothes_app/app/modules/onboarding/controllers/mainhome_controller.dart';
-import 'package:clothes_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MainHomeView extends GetView<MainHomeController> {
-  final MainHomeController _mainHomeController = Get.put(MainHomeController());
+import '../../../../../routes/app_pages.dart';
+import '../../../controllers/product/man/product_list_man_controller.dart';
+
+class ProductListManView extends GetView<ProductListManController> {
+  final ProductListManController _productListManController =
+      Get.put(ProductListManController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Trang chủ', style: TextStyle(color: Colors.black)),
+        title:
+            const Text('Sản phẩm nam', style: TextStyle(color: Colors.black)),
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        actions: [
-          Padding(
-              padding: const EdgeInsets.all(5),
-              child: Container(
-                width: 50,
-                height: 50,
-                child: const CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/Deco1.png'),
-                  radius: 30,
-                ),
-              ))
-        ],
+        foregroundColor: Colors.black,
         bottomOpacity: 0.0,
         elevation: 0.0,
       ),
@@ -39,43 +31,7 @@ class MainHomeView extends GetView<MainHomeController> {
       child: ListView(
         children: <Widget>[
           const Text(
-            'Chào mừng Phước',
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 10),
-            child: TextFormField(
-              keyboardType: TextInputType.text,
-              autofocus: false,
-              style: const TextStyle(color: Colors.black, fontSize: 16),
-              textAlignVertical: TextAlignVertical.center,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.only(left: 10),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black12, width: 1.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black12, width: 1.0),
-                ),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.black12,
-                ),
-                filled: true,
-                fillColor: Colors.white,
-                hintText: 'Tìm kiếm',
-                hintStyle: TextStyle(color: Colors.black12),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Text(
-            'Bộ sưu tập',
+            'Dành cho nam',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(
@@ -114,9 +70,7 @@ class MainHomeView extends GetView<MainHomeController> {
                     ),
                   ],
                 ),
-                onPressed: () {
-                  Get.toNamed(Routes.PRODUCTMAN);
-                },
+                onPressed: () {},
               ),
               const SizedBox(
                 width: 15,
@@ -153,9 +107,7 @@ class MainHomeView extends GetView<MainHomeController> {
                     ),
                   ],
                 ),
-                onPressed: () {
-                  Get.toNamed(Routes.PRODUCTWOMAN);
-                },
+                onPressed: () {},
               ),
             ],
           ),
