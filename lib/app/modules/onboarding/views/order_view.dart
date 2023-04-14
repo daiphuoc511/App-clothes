@@ -1,11 +1,11 @@
-import 'package:clothes_app/app/modules/onboarding/controllers/cart_controller.dart';
-import 'package:get/get.dart';
+import 'package:clothes_app/app/modules/onboarding/controllers/order_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../routes/app_pages.dart';
 
-class CartView extends GetView<CartController> {
-  final CartController _cartController = Get.put(CartController());
+class OrderView extends GetView<OrderController> {
+  final OrderController _cartController = Get.put(OrderController());
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +13,10 @@ class CartView extends GetView<CartController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Giỏ hàng', style: TextStyle(color: Colors.black)),
+        title: const Text('Thanh toán', style: TextStyle(color: Colors.black)),
         centerTitle: true,
         backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
         bottomOpacity: 0.0,
         elevation: 0.0,
       ),
@@ -67,7 +68,7 @@ class CartView extends GetView<CartController> {
                 height: 60,
                 child: const Center(
                     child: Text(
-                  'Mua ngay',
+                  'Đặt hàng',
                   textScaleFactor: 2,
                   style: TextStyle(
                     color: Colors.white,
@@ -97,32 +98,13 @@ class CartView extends GetView<CartController> {
                   width: 120,
                 ),
                 Column(
-                  children: [
+                  children: const [
                     Text('Quần kaki'),
                     Text(
                       '500000',
                       style: TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.remove),
-                          onPressed: () {
-                            _cartController
-                                .decreaseQuantity(); // Gọi phương thức giảm số lượng trong controller
-                          },
-                        ),
-                        Obx(() => Text(
-                            '${_cartController.quantity.value}')), // Hiển thị giá trị số lượng, sử dụng Obx để lắng nghe sự thay đổi của đối tượng quan sát
-                        IconButton(
-                          icon: Icon(Icons.add),
-                          onPressed: () {
-                            _cartController
-                                .increaseQuantity(); // Gọi phương thức tăng số lượng trong controller
-                          },
-                        ),
-                      ],
-                    )
+                    Text('Số lượng: 1'),
                   ],
                 )
               ],
