@@ -4,128 +4,152 @@ import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/login_controller.dart';
 
-class LoginView extends GetView<LoginController>{
+class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;    
+    Size screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          // scrollDirection: Axis.vertical,
           child: Stack(
             children: [
               Container(
-                height: screenHeight,
-                width: screenWidth,
+                width: screenSize.width,
+                height: screenSize.height,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    alignment: Alignment(0.625, 0),
-                    image: AssetImage('assets/images/Bg.jpg'),
+                    image: AssetImage('assets/images/background_login.png'),
                     fit: BoxFit.cover,
-                    // colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken)
                   ),
                 ),
-              ),
-              Column(
-                children: [
-                  Container(
-                    height: screenHeight / 3,
-                    width: screenWidth,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                            child: Text(
-                              'title_welcome'.tr,
-                              style: const TextStyle(
-                                  fontSize: 35,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                        Text(
-                          'title_welcome_sub_title'.tr,
-                          style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
+                child: Container(
+                  margin: const EdgeInsets.only(top: 400),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
                     ),
                   ),
-                  SizedBox(
-                    height: screenHeight / 5,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 25),
-                          child: TextField(
-                            keyboardType: TextInputType.emailAddress,
-                            style: const TextStyle(color: Colors.white, fontSize: 15),
-                            decoration: kTextFieldDecoration.copyWith(
-                              hintText: 'text_email'.tr,
-                              prefixIcon: const Icon(Icons.person,
-                                  color: Colors.white, size: 30),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 25),
-                          child: TextField(
-                            keyboardType: TextInputType.visiblePassword,
-                            style: const TextStyle(color: Colors.white, fontSize: 15),
-                            decoration: kTextFieldDecoration.copyWith(
-                              hintText: 'text_password'.tr,
-                              prefixIcon: const Icon(Icons.lock,
-                                  color: Colors.white, size: 25),
-                            ),
-                            obscureText: true,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: screenHeight / 3,
-                    width: screenWidth,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 2, vertical: 2),
-                          child: SignInButtonBuilder(
-                            text: 'buttons_sign_in_email'.tr,
-                            icon: Icons.email,
-                            onPressed: () {
-                            },
-                            backgroundColor: Colors.blueGrey[700]!,
-                          ),
-                        ),
-                        TextButton(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(25, 0, 0, 0),
                           child: Text(
-                            'text_no_account'.tr,
+                            'Đăng nhập',
                             style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
+                                fontSize: 35,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 25),
+                        child: TextField(
+                          keyboardType: TextInputType.emailAddress,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 15),
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            hintText: 'Username',
+                            prefixIcon: const Icon(Icons.person,
+                                color: Colors.black, size: 30),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 25),
+                        child: TextField(
+                          keyboardType: TextInputType.visiblePassword,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 15),
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            hintText: 'Password',
+                            prefixIcon: const Icon(Icons.lock,
+                                color: Colors.black, size: 30),
+                          ),
+                          obscureText: true,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 2, vertical: 2),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              alignment: Alignment.center,
+                              fixedSize: const Size(250, 50),
+                              primary: const Color.fromARGB(255, 244, 101, 5),
+                            ),
+                            child: const Text('Đăng nhập'),
+                            onPressed: () {}),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            padding: const EdgeInsets.only(left: 25),
+                            child: InkWell(
+                              highlightColor:
+                                  const Color.fromARGB(255, 124, 125, 126),
+                              onTap: () {
+                                Get.toNamed(Routes.SIGNUP);
+                              },
+                              child: const Text(
+                                'Đăng ký',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color.fromARGB(255, 244, 101, 5),
+                                ),
+                              ),
                             ),
                           ),
-                          onPressed: () {
-                            Get.toNamed(Routes.SIGNUP);
-                          },
-                        ),
-                      ],
-                    ),
+                          const Spacer(),
+                          Container(
+                            padding: const EdgeInsets.only(right: 25),
+                            child: InkWell(
+                              highlightColor:
+                                  const Color.fromARGB(255, 124, 125, 126),
+                              onTap: () {
+                                Get.toNamed(Routes.SIGNUP);
+                              },
+                              child: const Text(
+                                'Quên mật khẩu',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ],
           ),

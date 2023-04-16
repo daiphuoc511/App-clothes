@@ -17,202 +17,170 @@ const kTextFieldDecoration = InputDecoration(
 );
 
 class SignupView extends GetView<SignupController> {
-  bool datetime_isnull = true;
-  @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    Size screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          // scrollDirection: Axis.vertical,
           child: Stack(
             children: [
               Container(
-                height: screenHeight,
-                width: screenWidth,
+                width: screenSize.width,
+                height: screenSize.height,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    alignment: Alignment(0.625, 0),
-                    image: AssetImage('assets/images/Bg.jpg'),
+                    image: AssetImage('assets/images/background_login.png'),
                     fit: BoxFit.cover,
-                    // colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken)
                   ),
                 ),
-              ),
-              Column(
-                children: [
-                  Container(
-                    height: screenHeight / 6,
-                    width: screenWidth,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                            child: Text(
-                              'buttons_sign_up'.tr,
-                              style: const TextStyle(
-                                  fontSize: 35,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                        Text(
-                          'title_welcome_sub_title'.tr,
-                          style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
+                child: Container(
+                  margin: const EdgeInsets.only(top: 350),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8.0),
-                    height: screenHeight / 1.4,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(25, 0, 0, 0),
+                          child: Text(
+                            'Đăng ký',
+                            style: TextStyle(
+                                fontSize: 35,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 25),
+                        child: TextField(
+                          keyboardType: TextInputType.emailAddress,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 15),
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            hintText: 'Họ và tên',
+                            prefixIcon: const Icon(Icons.account_box,
+                                color: Colors.black, size: 30),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 25),
+                        child: TextField(
+                          keyboardType: TextInputType.emailAddress,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 15),
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            hintText: 'Username',
+                            prefixIcon: const Icon(Icons.person,
+                                color: Colors.black, size: 30),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 25),
+                        child: TextField(
+                          keyboardType: TextInputType.visiblePassword,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 15),
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            hintText: 'Password',
+                            prefixIcon: const Icon(Icons.lock,
+                                color: Colors.black, size: 30),
+                          ),
+                          obscureText: true,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 2, vertical: 2),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              alignment: Alignment.center,
+                              fixedSize: const Size(250, 50),
+                              primary: const Color.fromARGB(255, 244, 101, 5),
+                            ),
+                            child: const Text('Đăng ký'),
+                            onPressed: () {}),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 5),
-                            child: TextField(
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                              decoration: kTextFieldDecoration.copyWith(
-                                hintText: 'First Name'.tr,
-                              ),
-                              controller: controller.firstnameController,
-                              //  controller: emailController,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 5),
-                            child: TextField(
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                              decoration: kTextFieldDecoration.copyWith(
-                                hintText: 'Last Name'.tr,
-                              ),
-                              controller: controller.lastnameController,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 5),
-                            child: TextField(
-                              keyboardType: TextInputType.emailAddress,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                              decoration: kTextFieldDecoration.copyWith(
-                                hintText: 'Phone'.tr,
-                              ),
-                              controller: controller.phoneController,
-                              //  controller: emailController,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 5),
-                            child: TextField(
-                              keyboardType: TextInputType.emailAddress,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                              decoration: kTextFieldDecoration.copyWith(
-                                hintText: 'text_email'.tr,
-                              ),
-                              controller: controller.emailController,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 5),
-                            child: TextField(
-                              keyboardType: TextInputType.visiblePassword,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                              decoration: kTextFieldDecoration.copyWith(
-                                hintText: 'text_password'.tr,
-                              ),
-                              controller: controller.passwordController,
-                              obscureText: true,
-                            ),
-                          ),
-                          Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 5),
-                              child: GetX<SignupController>(builder: (_) {
-                                return Theme(
-                                  data: ThemeData(
-                                      unselectedWidgetColor: Colors.white),
-                                  child: CheckboxListTile(
-                                      title: Text(
-                                        'text_agree'.tr,
-                                        style: TextStyle(color: Colors.white),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                      controlAffinity:
-                                          ListTileControlAffinity.leading,
-                                      value: (_).checkbox_count.value,
-                                      activeColor: Colors.white,
-                                      checkColor: Colors.black,
-                                      onChanged: (value) {
-                                        controller.setStateCheckBox(value!);
-                                      }),
-                                );
-                              })),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 5, vertical: 5),
-                                  child: SignInButtonBuilder(
-                                    text: 'buttons_sign_up'.tr,
-                                    backgroundColor: Colors.blueGrey[700]!,
-                                    icon: Icons.email,
-                                    width: screenWidth/2,
-                                    onPressed: () {
-                                      controller.createUser(
-                                          controller.firstnameController.text,
-                                          controller.lastnameController.text,
-                                          controller.phoneController.text,
-                                          controller.emailController.text,
-                                          controller.passwordController.text,
-                                          controller.checkbox_count.value);
-                                    },
-                                  ),
+                          Container(
+                            padding: const EdgeInsets.only(left: 25),
+                            child: InkWell(
+                              highlightColor:
+                                  const Color.fromARGB(255, 124, 125, 126),
+                              onTap: () {
+                                Get.toNamed(Routes.LOGIN);
+                              },
+                              child: const Text(
+                                'Đăng nhập',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color.fromARGB(255, 244, 101, 5),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 5, vertical: 15),
-                                  child: SignInButtonBuilder(
-                                    text: 'Cancel'.tr,
-                                    icon: Icons.cancel,
-                                    backgroundColor: Colors.blueGrey[700]!,
-                                    width: screenWidth/3,
-                                    onPressed: () {
-                                      Get.toNamed(Routes.LOGIN);
-                                    },
-                                  ),
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
+                          Container(
+                            padding: const EdgeInsets.only(right: 25),
+                            child: InkWell(
+                              highlightColor:
+                                  const Color.fromARGB(255, 124, 125, 126),
+                              onTap: () {
+                                Get.toNamed(Routes.SIGNUP);
+                              },
+                              child: const Text(
+                                'Quên mật khẩu',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
                                 ),
-                              ],
+                              ),
                             ),
                           ),
                         ],
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ],
           ),
