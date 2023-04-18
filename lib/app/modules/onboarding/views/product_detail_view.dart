@@ -83,7 +83,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(0)),
                 child: Image.asset(
-                  'assets/images/Deco1.png',
+                  'assets/images/product/ao_a1.png',
                   width: screenSize.width,
                   fit: BoxFit.cover,
                 ),
@@ -94,7 +94,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
           const Padding(
             padding: EdgeInsets.all(10.0),
             child: Text(
-              'Quần chi chi đó',
+              'Áo khoác nỉ',
               textAlign: TextAlign.left,
             ),
           ),

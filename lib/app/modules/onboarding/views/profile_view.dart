@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/utils/image_picker_handler.dart';
 import '../controllers/profile_controller.dart';
+import 'package:date_field/date_field.dart';
 
 class ProfileView extends GetView<ProfileController> {
   final ProfileController _profileController = Get.put(ProfileController());
@@ -28,8 +29,8 @@ class ProfileView extends GetView<ProfileController> {
   }
 
   buildProfilePage(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
     return Form(
-        key: this._formKey,
         onChanged: () {},
         child: ListView(
           children: <Widget>[
@@ -41,9 +42,9 @@ class ProfileView extends GetView<ProfileController> {
                     onTap: () {
                       // imagePicker.showDialog(context);
                     },
-                    child: CircleAvatar(
-                      backgroundImage:
-                          FileImage(File('assets/images/Deco1.png')),
+                    child: const CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/avatar.png'),
+                      backgroundColor: Colors.grey,
                       radius: 80.0,
                     ),
                     // Container(
@@ -74,46 +75,63 @@ class ProfileView extends GetView<ProfileController> {
                             ?.copyWith(fontSize: 25),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 15,
                       ),
                       TextFormField(
                         textCapitalization: TextCapitalization.words,
                         decoration: const InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.black, width: 1.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.black, width: 1.0),
+                          ),
                           labelText: 'Nhập tên của bạn',
                           prefixIcon: Icon(Icons.account_box),
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 15,
                       ),
                       TextFormField(
                         decoration: const InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.black, width: 1.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.black, width: 1.0),
+                          ),
                           labelText: 'Nhập Email',
                           prefixIcon: Icon(Icons.email),
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 15,
                       ),
                       Visibility(
                           visible: true,
-                          child: DropdownButtonFormField(
-                            menuMaxHeight:
-                                MediaQuery.of(context).size.height / 4,
-                            alignment: AlignmentDirectional.centerEnd,
-                            items: List<DropdownMenuItem<String>>.generate(
-                                100,
-                                (int index) => DropdownMenuItem(
-                                      value:
-                                          "${int.parse(DateFormat.y().format(DateTime.now())) - index}", //added
-                                      child: Text(
-                                          "${int.parse(DateFormat.y().format(DateTime.now())) - index}"),
-                                    )).toList(),
+                          child: DateTimeFormField(
                             decoration: const InputDecoration(
-                              labelText: 'Ngày sinh',
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.black, width: 1.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.black, width: 1.0),
+                              ),
                               prefixIcon: Icon(Icons.calendar_today),
+                              labelText: 'Ngày tháng năm sinh',
                             ),
-                            onChanged: (String? value) {},
+                            mode: DateTimeFieldPickerMode.date,
+                            dateFormat: DateFormat('dd-MM-yyyy'),
+                            onDateSelected: (DateTime value) {
+                              print(value);
+                            },
                           )),
                       const SizedBox(
                         height: 40,
@@ -130,56 +148,34 @@ class ProfileView extends GetView<ProfileController> {
                               )),
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    minimumSize: Size(
-                                        MediaQuery.of(context).size.width > 600
-                                            ? MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                5
-                                            : 'Đăng xuất'.length * 12.0,
-                                        40),
-                                    fixedSize: Size(250, 40),
+                                    fixedSize: Size(screenSize.width / 3, 50),
                                     primary:
                                         const Color.fromARGB(255, 244, 101, 5),
                                   ),
                                   child: const Text('Lưu'),
                                   onPressed: () {}),
                             ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
+                            const SizedBox(
+                              width: 10,
+                            ),
                             Theme(
-                                data: Theme.of(context).copyWith(
-                                    buttonTheme: const ButtonThemeData(
-                                        minWidth: double.infinity,
-                                        height: 40,
-                                        buttonColor: Colors.grey)),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    minimumSize: Size(
-                                        MediaQuery.of(context).size.width > 600
-                                            ? MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                5
-                                            : 'Đăng xuất'.length * 12.0,
-                                        40),
-                                    fixedSize: Size(250, 40),
-                                    primary:
-                                        const Color.fromARGB(255, 244, 101, 5),
-                                  ),
-                                  child: const Text('Đăng xuất'),
-                                  onPressed: () {
-                                    Get.toNamed(Routes.LOGIN);
-                                  },
-                                )),
+                              data: Theme.of(context).copyWith(
+                                  buttonTheme: const ButtonThemeData(
+                                      minWidth: double.infinity,
+                                      height: 40,
+                                      buttonColor: Colors.grey)),
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: Size(screenSize.width / 3, 50),
+                                  primary:
+                                      const Color.fromARGB(255, 244, 101, 5),
+                                ),
+                                child: const Text('Đăng xuất'),
+                                onPressed: () {
+                                  Get.toNamed(Routes.LOGIN);
+                                },
+                              ),
+                            ),
                           ],
                         ),
                       ),

@@ -70,6 +70,10 @@ class SignupView extends GetView<SignupController> {
                           style: const TextStyle(
                               color: Colors.white, fontSize: 15),
                           decoration: InputDecoration(
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 1.0),
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
                             ),
@@ -90,6 +94,10 @@ class SignupView extends GetView<SignupController> {
                           style: const TextStyle(
                               color: Colors.white, fontSize: 15),
                           decoration: InputDecoration(
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 1.0),
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
                             ),
@@ -110,6 +118,10 @@ class SignupView extends GetView<SignupController> {
                           style: const TextStyle(
                               color: Colors.white, fontSize: 15),
                           decoration: InputDecoration(
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 1.0),
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
                             ),
