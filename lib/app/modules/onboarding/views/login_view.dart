@@ -59,6 +59,10 @@ class LoginView extends GetView<LoginController> {
                           style: const TextStyle(
                               color: Colors.white, fontSize: 15),
                           decoration: InputDecoration(
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 1.0),
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
                             ),
@@ -79,6 +83,10 @@ class LoginView extends GetView<LoginController> {
                           style: const TextStyle(
                               color: Colors.white, fontSize: 15),
                           decoration: InputDecoration(
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 1.0),
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
                             ),
@@ -96,13 +104,16 @@ class LoginView extends GetView<LoginController> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 2, vertical: 2),
                         child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              alignment: Alignment.center,
-                              fixedSize: const Size(250, 50),
-                              primary: const Color.fromARGB(255, 244, 101, 5),
-                            ),
-                            child: const Text('Đăng nhập'),
-                            onPressed: () {}),
+                          style: ElevatedButton.styleFrom(
+                            alignment: Alignment.center,
+                            fixedSize: const Size(250, 50),
+                            primary: const Color.fromARGB(255, 244, 101, 5),
+                          ),
+                          child: const Text('Đăng nhập'),
+                          onPressed: () {
+                            Get.toNamed(Routes.HOME);
+                          },
+                        ),
                       ),
                       const SizedBox(
                         height: 20,

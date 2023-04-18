@@ -89,19 +89,31 @@ class CartView extends GetView<CartController> {
       child: ListView(
         children: [
           Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Image.asset(
-                  'assets/images/Deco1.png',
+                  'assets/images/product/ao_a1.png',
                   width: 120,
+                ),
+                const SizedBox(
+                  width: 30,
                 ),
                 Column(
                   children: [
-                    Text('Quần kaki'),
-                    Text(
+                    const Text('Áo khoác nỉ'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
                       '500000',
                       style: TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                     Row(
                       children: [
@@ -115,7 +127,172 @@ class CartView extends GetView<CartController> {
                         Obx(() => Text(
                             '${_cartController.quantity.value}')), // Hiển thị giá trị số lượng, sử dụng Obx để lắng nghe sự thay đổi của đối tượng quan sát
                         IconButton(
-                          icon: Icon(Icons.add),
+                          icon: const Icon(Icons.add),
+                          onPressed: () {
+                            _cartController
+                                .increaseQuantity(); // Gọi phương thức tăng số lượng trong controller
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Image.asset(
+                  'assets/images/product/ao_a1.png',
+                  width: 120,
+                ),
+                const SizedBox(
+                  width: 30,
+                ),
+                Column(
+                  children: [
+                    const Text('Áo khoác nỉ'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      '500000',
+                      style: TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.remove),
+                          onPressed: () {
+                            _cartController
+                                .decreaseQuantity(); // Gọi phương thức giảm số lượng trong controller
+                          },
+                        ),
+                        Obx(() => Text(
+                            '${_cartController.quantity.value}')), // Hiển thị giá trị số lượng, sử dụng Obx để lắng nghe sự thay đổi của đối tượng quan sát
+                        IconButton(
+                          icon: const Icon(Icons.add),
+                          onPressed: () {
+                            _cartController
+                                .increaseQuantity(); // Gọi phương thức tăng số lượng trong controller
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Image.asset(
+                  'assets/images/product/ao_a1.png',
+                  width: 120,
+                ),
+                const SizedBox(
+                  width: 30,
+                ),
+                Column(
+                  children: [
+                    const Text('Áo khoác nỉ'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      '500000',
+                      style: TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.remove),
+                          onPressed: () {
+                            _cartController
+                                .decreaseQuantity(); // Gọi phương thức giảm số lượng trong controller
+                          },
+                        ),
+                        Obx(() => Text(
+                            '${_cartController.quantity.value}')), // Hiển thị giá trị số lượng, sử dụng Obx để lắng nghe sự thay đổi của đối tượng quan sát
+                        IconButton(
+                          icon: const Icon(Icons.add),
+                          onPressed: () {
+                            _cartController
+                                .increaseQuantity(); // Gọi phương thức tăng số lượng trong controller
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Image.asset(
+                  'assets/images/product/ao_a1.png',
+                  width: 120,
+                ),
+                const SizedBox(
+                  width: 30,
+                ),
+                Column(
+                  children: [
+                    const Text('Áo khoác nỉ'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      '500000',
+                      style: TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.remove),
+                          onPressed: () {
+                            _cartController
+                                .decreaseQuantity(); // Gọi phương thức giảm số lượng trong controller
+                          },
+                        ),
+                        Obx(() => Text(
+                            '${_cartController.quantity.value}')), // Hiển thị giá trị số lượng, sử dụng Obx để lắng nghe sự thay đổi của đối tượng quan sát
+                        IconButton(
+                          icon: const Icon(Icons.add),
                           onPressed: () {
                             _cartController
                                 .increaseQuantity(); // Gọi phương thức tăng số lượng trong controller

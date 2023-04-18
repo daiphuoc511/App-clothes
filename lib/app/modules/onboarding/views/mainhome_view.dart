@@ -20,7 +20,8 @@ class MainHomeView extends GetView<MainHomeController> {
                 width: 50,
                 height: 50,
                 child: const CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/Deco1.png'),
+                  backgroundImage: AssetImage('assets/images/avatar.png'),
+                  backgroundColor: Colors.grey,
                   radius: 30,
                 ),
               ))
@@ -178,35 +179,140 @@ class MainHomeView extends GetView<MainHomeController> {
             crossAxisCount: 2,
             children: <Widget>[
               Container(
-                  padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
                   color: Colors.white,
-                  child: InkWell(
-                    highlightColor: const Color.fromARGB(255, 124, 125, 126),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: screenSize.width,
-                          decoration: const BoxDecoration(
-                              color: Color.fromARGB(255, 255, 245, 236)),
-                          child: Image.asset(
-                            'assets/images/Deco1.png',
-                            width: screenSize.width,
-                          ),
+                ),
+                child: InkWell(
+                  highlightColor: const Color.fromARGB(255, 124, 125, 126),
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: screenSize.width,
+                        decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 255, 245, 236)),
+                        child: Image.asset(
+                          'assets/images/product/ao_a1.png',
+                          height: 110,
                         ),
-                        const SizedBox(height: 10),
-                        const Text('Quần chi chi đó'),
-                        const SizedBox(height: 5),
-                        const Text(
-                          '500000',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 244, 102, 4)),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text('Áo khoác nỉ'),
+                      const SizedBox(height: 5),
+                      const Text(
+                        '500000',
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    Get.toNamed(Routes.PRODUCTDETAIL);
+                  },
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: InkWell(
+                  highlightColor: const Color.fromARGB(255, 124, 125, 126),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: screenSize.width,
+                        decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 255, 245, 236)),
+                        child: Image.asset(
+                          'assets/images/product/ao_a1.png',
+                          height: 110,
                         ),
-                      ],
-                    ),
-                    onTap: () {
-                      Get.toNamed(Routes.PRODUCTDETAIL);
-                    },
-                  )),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text('Áo khoác nỉ'),
+                      const SizedBox(height: 5),
+                      const Text(
+                        '500000',
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    Get.toNamed(Routes.PRODUCTDETAIL);
+                  },
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: InkWell(
+                  highlightColor: const Color.fromARGB(255, 124, 125, 126),
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: screenSize.width,
+                        decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 255, 245, 236)),
+                        child: Image.asset(
+                          'assets/images/product/ao_a1.png',
+                          height: 110,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text('Áo khoác nỉ'),
+                      const SizedBox(height: 5),
+                      const Text(
+                        '500000',
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    Get.toNamed(Routes.PRODUCTDETAIL);
+                  },
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: InkWell(
+                  highlightColor: const Color.fromARGB(255, 124, 125, 126),
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: screenSize.width,
+                        decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 255, 245, 236)),
+                        child: Image.asset(
+                          'assets/images/product/ao_a1.png',
+                          height: 110,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text('Áo khoác nỉ'),
+                      const SizedBox(height: 5),
+                      const Text(
+                        '500000',
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    Get.toNamed(Routes.PRODUCTDETAIL);
+                  },
+                ),
+              ),
             ],
           ),
         ],
