@@ -111,7 +111,7 @@ class LoginView extends GetView<LoginController> {
                           ),
                           child: const Text('Đăng nhập'),
                           onPressed: () {
-                            Get.toNamed(Routes.HOME);
+                            Get.toNamed(Routes.MAINHOME);
                           },
                         ),
                       ),

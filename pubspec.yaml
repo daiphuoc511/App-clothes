@@ -36,4 +36,5 @@ flutter:
     - assets/images/
     - assets/images/icon/
     - assets/images/product/
+    - assets/images/product//man/man-t-shirt
   uses-material-design: true
