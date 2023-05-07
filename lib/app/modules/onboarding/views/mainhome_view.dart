@@ -170,151 +170,104 @@ class MainHomeView extends GetView<MainHomeController> {
           const SizedBox(
             height: 10,
           ),
-          GridView.count(
-            primary: false,
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(0),
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            crossAxisCount: 2,
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: InkWell(
-                  highlightColor: const Color.fromARGB(255, 124, 125, 126),
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: screenSize.width,
-                        decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 255, 245, 236)),
-                        child: Image.asset(
-                          'assets/images/product/ao_a1.png',
-                          height: 110,
-                        ),
+          // Column(
+          //   children: <Widget>[
+          //     SizedBox(
+          //       height: 200, // constrain height
+          //       child: Obx(
+          //         () => ListView.builder(
+          //           itemCount: _mainHomeController.productList.length,
+          //           itemBuilder: (context, index) {
+          //             return Container(
+          //               padding: const EdgeInsets.all(10),
+          //               decoration: const BoxDecoration(
+          //                 color: Colors.white,
+          //               ),
+          //               child: InkWell(
+          //                 highlightColor:
+          //                     const Color.fromARGB(255, 124, 125, 126),
+          //                 child: Column(
+          //                   children: [
+          //                     Container(
+          //                       width: screenSize.width,
+          //                       decoration: const BoxDecoration(
+          //                           color: Color.fromARGB(255, 255, 245, 236)),
+          //                       child: Image.asset(
+          //                         _mainHomeController
+          //                                 .productList[index].image ??
+          //                             'assets/images/product/ao_a1.png',
+          //                         height: 110,
+          //                       ),
+          //                     ),
+          //                     const SizedBox(height: 10),
+          //                     const Text('Áo khoác nỉ'),
+          //                     const SizedBox(height: 5),
+          //                     const Text(
+          //                       '500000',
+          //                       style: TextStyle(
+          //                           color: Color.fromARGB(255, 244, 102, 4)),
+          //                     ),
+          //                   ],
+          //                 ),
+          //                 onTap: () {
+          //                   Get.toNamed(Routes.PRODUCTDETAIL);
+          //                 },
+          //               ),
+          //             );
+          //           },
+          //         ),
+          //       ),
+          //     )
+          //   ],
+          // ),
+          Obx(
+            () => GridView.builder(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 200,
+                    childAspectRatio: 1,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10),
+                primary: false,
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(0),
+                itemCount: _mainHomeController.productList.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: InkWell(
+                      highlightColor: const Color.fromARGB(255, 124, 125, 126),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: screenSize.width,
+                            decoration: const BoxDecoration(
+                                color: Color.fromARGB(255, 255, 245, 236)),
+                            child: Image.asset(
+                              _mainHomeController.productList[index].image ??
+                                  'assets/images/product/ao_a1.png',
+                              height: 110,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          const Text('Áo khoác nỉ'),
+                          const SizedBox(height: 5),
+                          const Text(
+                            '500000',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 244, 102, 4)),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 10),
-                      const Text('Áo khoác nỉ'),
-                      const SizedBox(height: 5),
-                      const Text(
-                        '500000',
-                        style:
-                            TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
-                      ),
-                    ],
-                  ),
-                  onTap: () {
-                    Get.toNamed(Routes.PRODUCTDETAIL);
-                  },
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: InkWell(
-                  highlightColor: const Color.fromARGB(255, 124, 125, 126),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: screenSize.width,
-                        decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 255, 245, 236)),
-                        child: Image.asset(
-                          'assets/images/product/ao_a1.png',
-                          height: 110,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      const Text('Áo khoác nỉ'),
-                      const SizedBox(height: 5),
-                      const Text(
-                        '500000',
-                        style:
-                            TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
-                      ),
-                    ],
-                  ),
-                  onTap: () {
-                    Get.toNamed(Routes.PRODUCTDETAIL);
-                  },
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: InkWell(
-                  highlightColor: const Color.fromARGB(255, 124, 125, 126),
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: screenSize.width,
-                        decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 255, 245, 236)),
-                        child: Image.asset(
-                          'assets/images/product/ao_a1.png',
-                          height: 110,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      const Text('Áo khoác nỉ'),
-                      const SizedBox(height: 5),
-                      const Text(
-                        '500000',
-                        style:
-                            TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
-                      ),
-                    ],
-                  ),
-                  onTap: () {
-                    Get.toNamed(Routes.PRODUCTDETAIL);
-                  },
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: InkWell(
-                  highlightColor: const Color.fromARGB(255, 124, 125, 126),
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: screenSize.width,
-                        decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 255, 245, 236)),
-                        child: Image.asset(
-                          'assets/images/product/ao_a1.png',
-                          height: 110,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      const Text('Áo khoác nỉ'),
-                      const SizedBox(height: 5),
-                      const Text(
-                        '500000',
-                        style:
-                            TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
-                      ),
-                    ],
-                  ),
-                  onTap: () {
-                    Get.toNamed(Routes.PRODUCTDETAIL);
-                  },
-                ),
-              ),
-            ],
-          ),
+                      onTap: () {
+                        Get.toNamed(Routes.PRODUCTDETAIL);
+                      },
+                    ),
+                  );
+                }),
+          )
         ],
       ),
     );
