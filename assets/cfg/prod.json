@@ -1,0 +1,5 @@
+{
+  "token":"",
+  "apiUrl": "https://api.eventomorrow.com/",
+  "timeout": 40
+}
