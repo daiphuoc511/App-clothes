@@ -170,56 +170,6 @@ class MainHomeView extends GetView<MainHomeController> {
           const SizedBox(
             height: 10,
           ),
-          // Column(
-          //   children: <Widget>[
-          //     SizedBox(
-          //       height: 200, // constrain height
-          //       child: Obx(
-          //         () => ListView.builder(
-          //           itemCount: _mainHomeController.productList.length,
-          //           itemBuilder: (context, index) {
-          //             return Container(
-          //               padding: const EdgeInsets.all(10),
-          //               decoration: const BoxDecoration(
-          //                 color: Colors.white,
-          //               ),
-          //               child: InkWell(
-          //                 highlightColor:
-          //                     const Color.fromARGB(255, 124, 125, 126),
-          //                 child: Column(
-          //                   children: [
-          //                     Container(
-          //                       width: screenSize.width,
-          //                       decoration: const BoxDecoration(
-          //                           color: Color.fromARGB(255, 255, 245, 236)),
-          //                       child: Image.asset(
-          //                         _mainHomeController
-          //                                 .productList[index].image ??
-          //                             'assets/images/product/ao_a1.png',
-          //                         height: 110,
-          //                       ),
-          //                     ),
-          //                     const SizedBox(height: 10),
-          //                     const Text('Áo khoác nỉ'),
-          //                     const SizedBox(height: 5),
-          //                     const Text(
-          //                       '500000',
-          //                       style: TextStyle(
-          //                           color: Color.fromARGB(255, 244, 102, 4)),
-          //                     ),
-          //                   ],
-          //                 ),
-          //                 onTap: () {
-          //                   Get.toNamed(Routes.PRODUCTDETAIL);
-          //                 },
-          //               ),
-          //             );
-          //           },
-          //         ),
-          //       ),
-          //     )
-          //   ],
-          // ),
           Obx(
             () => GridView.builder(
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -252,11 +202,14 @@ class MainHomeView extends GetView<MainHomeController> {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          const Text('Áo khoác nỉ'),
+                          Text(_mainHomeController
+                              .productList[index].productName
+                              .toString()),
                           const SizedBox(height: 5),
-                          const Text(
-                            '500000',
-                            style: TextStyle(
+                          Text(
+                            _mainHomeController.productList[index].price
+                                .toString(),
+                            style: const TextStyle(
                                 color: Color.fromARGB(255, 244, 102, 4)),
                           ),
                         ],
