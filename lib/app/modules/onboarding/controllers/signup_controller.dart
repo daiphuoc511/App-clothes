@@ -24,14 +24,11 @@ class SignupController extends GetxController {
 
   RxBool checkbox_count = false.obs;
 
+  RxString selectedGender = 'male'.obs;
+
   @override
   void onInit() {
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override
@@ -44,7 +41,7 @@ class SignupController extends GetxController {
       "email": "${signupModel.email}",
       "password": "${signupModel.password}",
       "birthday": "${signupModel.birthday}",
-      "gender": true
+      "gender": signupModel.gender
     });
 
     http.Response response = await http.post(
@@ -57,5 +54,9 @@ class SignupController extends GetxController {
     }
 
     return SignUpResponse(msg: response.body, status: response.statusCode);
+  }
+
+  void selectGender(String gender) {
+    selectedGender.value = gender;
   }
 }

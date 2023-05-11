@@ -1,24 +1,18 @@
 class LoginModel {
-  int? status;
-  String? accessToken;
-  String? tokenType;
-  int? expiresIn;
+  String? email;
+  String? password;
 
-  LoginModel({this.status, this.accessToken, this.tokenType, this.expiresIn});
+  LoginModel({this.email, this.password});
 
   LoginModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    accessToken = json['access_token'];
-    tokenType = json['token_type'];
-    expiresIn = json['expires_in'];
+    email = json['email'];
+    password = json['password'];
   }
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    data['status'] = status;
-    data['access_token'] = accessToken;
-    data['token_type'] = tokenType;
-    data['expires_in'] = expiresIn;
+    data['email'] = email;
+    data['password'] = password;
     return data;
   }
 }

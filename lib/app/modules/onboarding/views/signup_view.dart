@@ -18,16 +18,18 @@ const kTextFieldDecoration = InputDecoration(
   ),
 );
 
+enum Gender { Female, Male, Other }
+
 class SignupView extends GetView<SignupController> {
   final SignupController _signupController = Get.put(SignupController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   SignupModel data = SignupModel();
-  bool isMale = true;
-  bool isFemale = false;
+  late bool isGender;
 
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
+    Gender? gender = Gender.Male;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -48,7 +50,7 @@ class SignupView extends GetView<SignupController> {
                     ),
                   ),
                   child: Container(
-                    margin: const EdgeInsets.only(top: 200),
+                    margin: const EdgeInsets.only(top: 150),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -160,46 +162,6 @@ class SignupView extends GetView<SignupController> {
                         const SizedBox(
                           height: 10,
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.symmetric(
-                        //       vertical: 5, horizontal: 25),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.center,
-                        //     children: [
-                        //       Expanded(
-                        //         child: ListTile(
-                        //           contentPadding: const EdgeInsets.all(0),
-                        //           title: const Text('Nam'),
-                        //           leading: Radio(
-                        //             value: true,
-                        //             groupValue: isMale,
-                        //             onChanged: (value) {
-                        //               isMale = value as bool;
-                        //               data.gender = value;
-                        //             },
-                        //           ),
-                        //         ),
-                        //       ),
-                        //       Expanded(
-                        //         child: ListTile(
-                        //           contentPadding: const EdgeInsets.all(0),
-                        //           title: const Text('Nữ'),
-                        //           leading: Radio(
-                        //             value: false,
-                        //             groupValue: isMale,
-                        //             onChanged: (value) {
-                        //               isMale = value as bool;
-                        //               data.gender = value;
-                        //             },
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                        const SizedBox(
-                          height: 10,
-                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 25),
@@ -230,6 +192,68 @@ class SignupView extends GetView<SignupController> {
                                 data.birthday =
                                     "${newValue!.day}/${newValue.month}/${newValue.year}";
                               },
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 25),
+                          child: Obx(
+                            () => Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: ListTile(
+                                    contentPadding: const EdgeInsets.all(0),
+                                    title: const Text('Nam'),
+                                    leading: Radio(
+                                      value: 'male',
+                                      groupValue: _signupController
+                                          .selectedGender.value,
+                                      onChanged: (value) {
+                                        _signupController
+                                            .selectGender(value.toString());
+                                        data.gender = 1;
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: ListTile(
+                                    contentPadding: const EdgeInsets.all(0),
+                                    title: const Text('Nữ'),
+                                    leading: Radio(
+                                      value: 'female',
+                                      groupValue: _signupController
+                                          .selectedGender.value,
+                                      onChanged: (value) {
+                                        _signupController
+                                            .selectGender(value.toString());
+                                        data.gender = 0;
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: ListTile(
+                                    contentPadding: const EdgeInsets.all(0),
+                                    title: const Text('Khác'),
+                                    leading: Radio(
+                                      value: 'other',
+                                      groupValue: _signupController
+                                          .selectedGender.value,
+                                      onChanged: (value) {
+                                        _signupController
+                                            .selectGender(value.toString());
+                                        data.gender = 2;
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -310,8 +334,7 @@ class SignupView extends GetView<SignupController> {
       _formKey.currentState!.save();
     }
 
-    SignUpResponse signUpResponse =
-        _signupController.signUp(data) as SignUpResponse;
+    SignUpResponse signUpResponse = await _signupController.signUp(data);
     if (signUpResponse.status == 200) {
       if (_scaffoldKey.currentState != null) {
         // ignore: avoid_print
