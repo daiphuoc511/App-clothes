@@ -3,7 +3,7 @@ class SignupModel {
   String? email;
   String? password;
   String? birthday;
-  bool? gender;
+  int? gender;
 
   SignupModel(
       {this.name, this.email, this.password, this.birthday, this.gender});
@@ -13,7 +13,7 @@ class SignupModel {
     email = json['email'] as String;
     password = json['password'] as String;
     birthday = json['birthday'] as String;
-    gender = json['gender'] as bool;
+    gender = json['gender'] as int;
   }
 
   Map<String, dynamic> toJson() {

@@ -120,15 +120,19 @@ class ProductListWomanView extends GetView<ProductListWomanController> {
           const SizedBox(
             height: 10,
           ),
-          GridView.count(
-            primary: false,
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(0),
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            crossAxisCount: 2,
-            children: <Widget>[
-              Container(
+          Obx(
+            () => GridView.builder(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 1,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10),
+              primary: false,
+              shrinkWrap: true,
+              padding: const EdgeInsets.all(0),
+              itemCount: _productListWomanController.productList.length,
+              itemBuilder: (context, index) {
+                return Container(
                   padding: const EdgeInsets.all(10),
                   color: Colors.white,
                   child: InkWell(
@@ -140,16 +144,21 @@ class ProductListWomanView extends GetView<ProductListWomanController> {
                           decoration: const BoxDecoration(
                               color: Color.fromARGB(255, 255, 245, 236)),
                           child: Image.asset(
-                            'assets/images/Deco1.png',
-                            width: screenSize.width,
+                            _productListWomanController
+                                    .productList[index].image ??
+                                'assets/images/product/ao_a1.png',
+                            height: 110,
                           ),
                         ),
                         const SizedBox(height: 10),
-                        const Text('Quần chi chi đó'),
+                        Text(_productListWomanController
+                            .productList[index].productName
+                            .toString()),
                         const SizedBox(height: 5),
-                        const Text(
-                          '500000',
-                          style: TextStyle(
+                        Text(
+                          _productListWomanController.productList[index].price
+                              .toString(),
+                          style: const TextStyle(
                               color: Color.fromARGB(255, 244, 102, 4)),
                         ),
                       ],
@@ -157,8 +166,10 @@ class ProductListWomanView extends GetView<ProductListWomanController> {
                     onTap: () {
                       Get.toNamed(Routes.PRODUCTDETAIL);
                     },
-                  )),
-            ],
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),

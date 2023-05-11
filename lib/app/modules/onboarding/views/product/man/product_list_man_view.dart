@@ -121,15 +121,19 @@ class ProductListManView extends GetView<ProductListManController> {
           const SizedBox(
             height: 10,
           ),
-          GridView.count(
-            primary: false,
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(0),
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            crossAxisCount: 2,
-            children: <Widget>[
-              Container(
+          Obx(
+            () => GridView.builder(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 1,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10),
+              primary: false,
+              shrinkWrap: true,
+              padding: const EdgeInsets.all(0),
+              itemCount: _productListManController.productList.length,
+              itemBuilder: (context, index) {
+                return Container(
                   padding: const EdgeInsets.all(10),
                   color: Colors.white,
                   child: InkWell(
@@ -141,16 +145,21 @@ class ProductListManView extends GetView<ProductListManController> {
                           decoration: const BoxDecoration(
                               color: Color.fromARGB(255, 255, 245, 236)),
                           child: Image.asset(
-                            'assets/images/Deco1.png',
-                            width: screenSize.width,
+                            _productListManController
+                                    .productList[index].image ??
+                                'assets/images/product/ao_a1.png',
+                            height: 110,
                           ),
                         ),
                         const SizedBox(height: 10),
-                        const Text('Quần chi chi đó'),
+                        Text(_productListManController
+                            .productList[index].productName
+                            .toString()),
                         const SizedBox(height: 5),
-                        const Text(
-                          '500000',
-                          style: TextStyle(
+                        Text(
+                          _productListManController.productList[index].price
+                              .toString(),
+                          style: const TextStyle(
                               color: Color.fromARGB(255, 244, 102, 4)),
                         ),
                       ],
@@ -158,8 +167,10 @@ class ProductListManView extends GetView<ProductListManController> {
                     onTap: () {
                       Get.toNamed(Routes.PRODUCTDETAIL);
                     },
-                  )),
-            ],
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
