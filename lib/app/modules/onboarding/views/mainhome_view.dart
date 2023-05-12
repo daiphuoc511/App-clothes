@@ -1,4 +1,5 @@
 import 'package:clothes_app/app/modules/onboarding/controllers/mainhome_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/views/product_detail_view.dart';
 import 'package:clothes_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -201,21 +202,30 @@ class MainHomeView extends GetView<MainHomeController> {
                               height: 110,
                             ),
                           ),
-                          const SizedBox(height: 10),
-                          Text(_mainHomeController
-                              .productList[index].productName
-                              .toString()),
+                          const SizedBox(height: 5),
+                          Text(
+                            _mainHomeController.productList[index].productName
+                                .toString(),
+                            style: const TextStyle(
+                              fontSize: 10,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
                           const SizedBox(height: 5),
                           Text(
                             _mainHomeController.productList[index].price
                                 .toString(),
                             style: const TextStyle(
-                                color: Color.fromARGB(255, 244, 102, 4)),
+                              color: Color.fromARGB(255, 244, 102, 4),
+                              fontSize: 12,
+                            ),
                           ),
                         ],
                       ),
                       onTap: () {
-                        Get.toNamed(Routes.PRODUCTDETAIL);
+                        Get.to(ProductDetailView(
+                            productId: _mainHomeController
+                                .productList[index].productId));
                       },
                     ),
                   );

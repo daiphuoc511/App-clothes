@@ -1,8 +1,7 @@
 import 'package:clothes_app/app/modules/onboarding/controllers/product/woman/product_list_woman_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/views/product/woman/product_detail_listwoman_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../../../routes/app_pages.dart';
 
 class ProductListWomanView extends GetView<ProductListWomanController> {
   final ProductListWomanController _productListWomanController =
@@ -36,7 +35,8 @@ class ProductListWomanView extends GetView<ProductListWomanController> {
           const SizedBox(
             height: 10,
           ),
-          Row(
+          Wrap(
+            runSpacing: 15,
             children: <Widget>[
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -59,12 +59,13 @@ class ProductListWomanView extends GetView<ProductListWomanController> {
                             ),
                           ],
                         ),
-                        child: Image.asset('assets/images/icon/icon_man.png')),
+                        child: Image.asset(
+                            'assets/images/icon/icon_woman_jacket.png')),
                     const SizedBox(
                       height: 5,
                     ),
                     const Text(
-                      'Nam',
+                      'Áo khoác',
                       style: TextStyle(color: Colors.black),
                     ),
                   ],
@@ -95,13 +96,124 @@ class ProductListWomanView extends GetView<ProductListWomanController> {
                             ),
                           ],
                         ),
-                        child:
-                            Image.asset('assets/images/icon/icon_woman.png')),
+                        child: Image.asset(
+                            'assets/images/icon/icon_woman_tshirt.png')),
                     const SizedBox(
                       height: 5,
                     ),
                     const Text(
-                      'Nữ',
+                      'Áo thun',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                ),
+                onPressed: () {},
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(0),
+                    primary: Colors.transparent,
+                    elevation: 0),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              spreadRadius: 2,
+                              blurRadius: 6,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Image.asset(
+                            'assets/images/icon/icon_woman_kaki_pant.png')),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Text(
+                      'Quần tây',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                ),
+                onPressed: () {},
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(0),
+                    primary: Colors.transparent,
+                    elevation: 0),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              spreadRadius: 2,
+                              blurRadius: 6,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Image.asset(
+                            'assets/images/icon/icon_woman_dress.png')),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Text(
+                      'Đầm',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                ),
+                onPressed: () {},
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(0),
+                    primary: Colors.transparent,
+                    elevation: 0),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              spreadRadius: 2,
+                              blurRadius: 6,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Image.asset(
+                            'assets/images/icon/icon_woman_skirt.png')),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Text(
+                      'Chân váy',
                       style: TextStyle(color: Colors.black),
                     ),
                   ],
@@ -150,21 +262,31 @@ class ProductListWomanView extends GetView<ProductListWomanController> {
                             height: 110,
                           ),
                         ),
-                        const SizedBox(height: 10),
-                        Text(_productListWomanController
-                            .productList[index].productName
-                            .toString()),
+                        const SizedBox(height: 5),
+                        Text(
+                          _productListWomanController
+                              .productList[index].productName
+                              .toString(),
+                          style: const TextStyle(
+                            fontSize: 10,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                         const SizedBox(height: 5),
                         Text(
                           _productListWomanController.productList[index].price
                               .toString(),
                           style: const TextStyle(
-                              color: Color.fromARGB(255, 244, 102, 4)),
+                            color: Color.fromARGB(255, 244, 102, 4),
+                            fontSize: 12,
+                          ),
                         ),
                       ],
                     ),
                     onTap: () {
-                      Get.toNamed(Routes.PRODUCTDETAIL);
+                      Get.to(ProductDetailListWomanView(
+                          productId: _productListWomanController
+                              .productList[index].productId));
                     },
                   ),
                 );

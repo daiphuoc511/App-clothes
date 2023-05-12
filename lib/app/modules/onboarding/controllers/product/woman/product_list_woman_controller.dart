@@ -20,7 +20,7 @@ class ProductListWomanController extends GetxController {
         .get(Uri.parse('http://192.168.1.1:8080/api/user/product_female'));
 
     if (response.statusCode == 200) {
-      List<dynamic> list = json.decode(response.body);
+      List<dynamic> list = json.decode(utf8.decode(response.bodyBytes));
       for (var item in list) {
         ProductModel productModel = ProductModel.fromJson(Map.from(item));
         productList.add(productModel);
@@ -31,5 +31,9 @@ class ProductListWomanController extends GetxController {
       Get.snackbar('Error Loading data!',
           'Sever responded: ${response.statusCode}:${response.reasonPhrase.toString()}');
     }
+  }
+
+  ProductModel getProductById(int productId) {
+    return productList.firstWhere((product) => product.productId == productId);
   }
 }

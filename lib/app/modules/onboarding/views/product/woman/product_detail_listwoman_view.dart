@@ -1,16 +1,16 @@
-import 'package:clothes_app/app/modules/onboarding/controllers/mainhome_controller.dart';
-import 'package:clothes_app/app/modules/onboarding/controllers/product_detail_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/controllers/product/woman/product_list_woman_controller.dart';
+import 'package:clothes_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 
-import '../../../routes/app_pages.dart';
-
-class ProductDetailView extends GetView<MainHomeController> {
-  final MainHomeController _mainHomeController = Get.put(MainHomeController());
+class ProductDetailListWomanView extends GetView<ProductListWomanController> {
+  final ProductListWomanController _productListWomanController =
+      Get.put(ProductListWomanController());
   final int productId;
 
-  ProductDetailView({required this.productId});
+  ProductDetailListWomanView({Key? key, required this.productId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class ProductDetailView extends GetView<MainHomeController> {
 
   buildProductDetailPage(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    var product = _mainHomeController.getProductById(productId);
+    var product = _productListWomanController.getProductById(productId);
     return Container(
       padding: const EdgeInsets.all(0),
       child: ListView(
