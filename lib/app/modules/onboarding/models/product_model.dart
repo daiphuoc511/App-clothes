@@ -11,7 +11,7 @@ class ProductModel {
   int? xl;
   int? xxl;
   int? xxxl;
-  bool? clothesType;
+  int? clothesType;
   String? description;
 
   ProductModel(
@@ -31,8 +31,8 @@ class ProductModel {
       this.description});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
-    productId = json['product_id'] as int;
-    productName = json['product_name'] as String;
+    productId = json['productId'] as int;
+    productName = json['productName'] as String;
     image = json['image'] as String;
     price = json['price'] as int;
     brand = json['brand'] as String;
@@ -43,7 +43,7 @@ class ProductModel {
     xl = json['xl'] as int;
     xxl = json['xxl'] as int;
     xxxl = json['xxxl'] as int;
-    clothesType = json['clothes_type'] as bool;
+    clothesType = json['clothesType'] as int;
     description = json['description'] as String;
   }
 
