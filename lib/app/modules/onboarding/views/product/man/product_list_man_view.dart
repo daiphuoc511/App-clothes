@@ -1,4 +1,5 @@
 import 'package:clothes_app/app/modules/onboarding/views/product/man/product_detail_listman_view.dart';
+import 'package:clothes_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controllers/product/man/product_list_man_controller.dart';
@@ -71,7 +72,9 @@ class ProductListManView extends GetView<ProductListManController> {
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.PRODUCTMANJACKET);
+                },
               ),
               const SizedBox(
                 width: 15,
@@ -98,7 +101,7 @@ class ProductListManView extends GetView<ProductListManController> {
                           ],
                         ),
                         child: Image.asset(
-                            'assets/images/icon/icon_man_shirt.png')),
+                            'assets/images/icon/icon_man_tshirt.png')),
                     const SizedBox(
                       height: 5,
                     ),
@@ -108,7 +111,9 @@ class ProductListManView extends GetView<ProductListManController> {
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.PRODUCTMANTSHIRT);
+                },
               ),
               const SizedBox(
                 width: 15,
@@ -145,7 +150,9 @@ class ProductListManView extends GetView<ProductListManController> {
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.PRODUCTMANPOLO);
+                },
               ),
               const SizedBox(
                 width: 15,
@@ -172,7 +179,7 @@ class ProductListManView extends GetView<ProductListManController> {
                           ],
                         ),
                         child: Image.asset(
-                            'assets/images/icon/icon_man_tshirt.png')),
+                            'assets/images/icon/icon_man_shirt.png')),
                     const SizedBox(
                       height: 5,
                     ),
@@ -182,7 +189,9 @@ class ProductListManView extends GetView<ProductListManController> {
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.PRODUCTMANSHIRT);
+                },
               ),
               const SizedBox(
                 width: 15,
@@ -219,7 +228,9 @@ class ProductListManView extends GetView<ProductListManController> {
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.PRODUCTMANKAKI);
+                },
               ),
               const SizedBox(
                 width: 15,
@@ -256,7 +267,9 @@ class ProductListManView extends GetView<ProductListManController> {
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.PRODUCTMANTROUSER);
+                },
               ),
             ],
           ),

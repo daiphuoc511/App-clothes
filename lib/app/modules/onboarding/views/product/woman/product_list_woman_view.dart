@@ -1,5 +1,6 @@
 import 'package:clothes_app/app/modules/onboarding/controllers/product/woman/product_list_woman_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/views/product/woman/product_detail_listwoman_view.dart';
+import 'package:clothes_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -70,7 +71,9 @@ class ProductListWomanView extends GetView<ProductListWomanController> {
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.PRODUCTWOMANJACKET);
+                },
               ),
               const SizedBox(
                 width: 15,
@@ -107,7 +110,9 @@ class ProductListWomanView extends GetView<ProductListWomanController> {
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.PRODUCTWOMANTSHIRT);
+                },
               ),
               const SizedBox(
                 width: 15,
@@ -139,12 +144,14 @@ class ProductListWomanView extends GetView<ProductListWomanController> {
                       height: 5,
                     ),
                     const Text(
-                      'Quần tây',
+                      'Quần kaki',
                       style: TextStyle(color: Colors.black),
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.PRODUCTWOMANKAKI);
+                },
               ),
               const SizedBox(
                 width: 15,
@@ -181,7 +188,9 @@ class ProductListWomanView extends GetView<ProductListWomanController> {
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.PRODUCTWOMANDRESS);
+                },
               ),
               const SizedBox(
                 width: 15,
@@ -218,7 +227,9 @@ class ProductListWomanView extends GetView<ProductListWomanController> {
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.PRODUCTWOMANSKIRT);
+                },
               ),
             ],
           ),

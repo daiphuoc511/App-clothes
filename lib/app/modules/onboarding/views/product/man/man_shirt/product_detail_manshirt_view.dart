@@ -1,15 +1,16 @@
-import 'package:clothes_app/app/modules/onboarding/controllers/product/man/product_list_man_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/controllers/product/man/product_list_manshirt_controller.dart';
 import 'package:clothes_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 
-class ProductDetailListManView extends GetView<ProductListManController> {
-  final ProductListManController _productListManController =
-      Get.put(ProductListManController());
+class ProductDetailListManShirtView
+    extends GetView<ProductListManShirtController> {
+  final ProductListManShirtController _productListManShirtController =
+      Get.put(ProductListManShirtController());
   final int productId;
 
-  ProductDetailListManView({Key? key, required this.productId})
+  ProductDetailListManShirtView({Key? key, required this.productId})
       : super(key: key);
 
   @override
@@ -71,7 +72,7 @@ class ProductDetailListManView extends GetView<ProductListManController> {
 
   buildProductDetailPage(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    var product = _productListManController.getProductById(productId);
+    var product = _productListManShirtController.getProductById(productId);
     return Container(
       padding: const EdgeInsets.all(0),
       child: ListView(
