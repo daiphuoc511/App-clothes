@@ -49,8 +49,8 @@ class ProductModel {
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    data['product_id'] = productId;
-    data['product_name'] = productName;
+    data['productId'] = productId;
+    data['productName'] = productName;
     data['image'] = image;
     data['price'] = price;
     data['brand'] = brand;

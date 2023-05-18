@@ -41,7 +41,7 @@ class MainHomeView extends GetView<MainHomeController> {
       child: ListView(
         children: <Widget>[
           const Text(
-            'Chào mừng Phước',
+            'Chào mừng',
             style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
           const SizedBox(

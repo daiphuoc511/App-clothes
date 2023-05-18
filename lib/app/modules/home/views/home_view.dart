@@ -7,8 +7,6 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  HomeView({Key? key}) : super(key: key);
-
   final HomeController _homeController = Get.put(HomeController());
 
   @override

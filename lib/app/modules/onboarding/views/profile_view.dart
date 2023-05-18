@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,8 +10,8 @@ import '../../../core/utils/image_picker_handler.dart';
 import '../controllers/profile_controller.dart';
 import 'package:date_field/date_field.dart';
 
-class ProfileView extends GetView<ProfileController> {
-  final ProfileController _profileController = Get.put(ProfileController());
+class ProfileView extends GetView<LoginController> {
+  final LoginController _loginController = Get.put(LoginController());
   // late ImagePickerHandler imagePicker;
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
@@ -79,6 +80,7 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                       TextFormField(
                         textCapitalization: TextCapitalization.words,
+                        initialValue: _loginController.profile.name,
                         decoration: const InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderSide:

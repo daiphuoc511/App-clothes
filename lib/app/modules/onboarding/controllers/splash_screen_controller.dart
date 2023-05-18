@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:clothes_app/app/modules/home/views/home_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 

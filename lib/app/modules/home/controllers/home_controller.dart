@@ -1,8 +1,11 @@
 import 'package:clothes_app/app/modules/home/bindings/home_binding.dart';
 import 'package:clothes_app/app/modules/home/views/home_view.dart';
 import 'package:clothes_app/app/modules/onboarding/bindings/cart_binding.dart';
+import 'package:clothes_app/app/modules/onboarding/bindings/login_binding.dart';
 import 'package:clothes_app/app/modules/onboarding/bindings/mainhome_binding.dart';
+import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/views/cart_view.dart';
+import 'package:clothes_app/app/modules/onboarding/views/login_view.dart';
 import 'package:clothes_app/app/modules/onboarding/views/mainhome_view.dart';
 import 'package:clothes_app/app/modules/onboarding/views/profile_view.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +15,7 @@ import '../../onboarding/bindings/profile_binding.dart';
 
 class HomeController extends GetxController {
   static HomeController get to => Get.find();
+  final LoginController _loginController = Get.put(LoginController());
 
   var currentIndex = 0.obs;
 
@@ -39,11 +43,21 @@ class HomeController extends GetxController {
       );
     }
 
-    if (settings.name == '/profile' && currentIndex.value == 2) {
+    if (settings.name == '/profile' &&
+        currentIndex.value == 2 &&
+        _loginController.isAuthenticated == true) {
       return GetPageRoute(
         settings: settings,
         page: () => ProfileView(),
         binding: ProfileBinding(),
+      );
+    } else if (settings.name == '/profile' &&
+        currentIndex.value == 2 &&
+        _loginController.isAuthenticated == false) {
+      return GetPageRoute(
+        settings: settings,
+        page: () => LoginView(),
+        binding: LoginBinding(),
       );
     }
 
