@@ -1,5 +1,4 @@
 import 'package:clothes_app/app/modules/onboarding/controllers/mainhome_controller.dart';
-import 'package:clothes_app/app/modules/onboarding/controllers/product_detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';

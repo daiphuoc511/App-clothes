@@ -1,6 +1,5 @@
 import 'package:clothes_app/app/modules/onboarding/models/login_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/login_controller.dart';
@@ -191,12 +190,13 @@ class LoginView extends GetView<LoginController> {
   void login(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-    }
 
-    LoginResponse loginResponse = await _loginController.login(data);
-    if (loginResponse.status == 200) {
-      // ignore: avoid_print
-      print("OK");
+      LoginResponse loginResponse = await _loginController.login(data);
+      if (loginResponse.status == 200) {
+        await _loginController.getAndParseProfile();
+        Get.offAndToNamed(Routes.HOME, id: 1);
+        print("OK");
+      }
     }
   }
 }
