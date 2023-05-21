@@ -336,10 +336,7 @@ class SignupView extends GetView<SignupController> {
 
     SignUpResponse signUpResponse = await _signupController.signUp(data);
     if (signUpResponse.status == 200) {
-      if (_scaffoldKey.currentState != null) {
-        // ignore: avoid_print
-        print("OK");
-      }
+       Get.offAndToNamed(Routes.LOGIN);
     }
   }
 }
