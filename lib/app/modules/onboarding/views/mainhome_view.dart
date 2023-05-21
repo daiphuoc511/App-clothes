@@ -1,3 +1,4 @@
+import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/mainhome_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/views/product_detail_view.dart';
 import 'package:clothes_app/app/routes/app_pages.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 
 class MainHomeView extends GetView<MainHomeController> {
   final MainHomeController _mainHomeController = Get.put(MainHomeController());
+  final LoginController _loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -172,64 +174,131 @@ class MainHomeView extends GetView<MainHomeController> {
             height: 10,
           ),
           Obx(
-            () => GridView.builder(
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 1,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10),
-                primary: false,
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(0),
-                itemCount: _mainHomeController.productList.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: InkWell(
-                      highlightColor: const Color.fromARGB(255, 124, 125, 126),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: screenSize.width,
-                            decoration: const BoxDecoration(
-                                color: Color.fromARGB(255, 255, 245, 236)),
-                            child: Image.asset(
-                              _mainHomeController.productList[index].image ??
-                                  'assets/images/product/ao_a1.png',
-                              height: 110,
-                            ),
+            () => _loginController.isAuthenticated
+                ? GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 1,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10),
+                    primary: false,
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.all(0),
+                    itemCount: _loginController.productListByUser.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        child: InkWell(
+                          highlightColor:
+                              const Color.fromARGB(255, 124, 125, 126),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: screenSize.width,
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 255, 245, 236)),
+                                child: Image.asset(
+                                  _loginController
+                                          .productListByUser[index].image ??
+                                      'assets/images/product/ao_a1.png',
+                                  height: 110,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                _loginController
+                                    .productListByUser[index].productName
+                                    .toString(),
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                _loginController.productListByUser[index].price
+                                    .toString(),
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 244, 102, 4),
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 5),
-                          Text(
-                            _mainHomeController.productList[index].productName
-                                .toString(),
-                            style: const TextStyle(
-                              fontSize: 10,
-                            ),
-                            textAlign: TextAlign.center,
+                          onTap: () {
+                            Get.to(ProductDetailView(
+                                productId: _loginController
+                                    .productListByUser[index].productId));
+                          },
+                        ),
+                      );
+                    })
+                : GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 1,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10),
+                    primary: false,
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.all(0),
+                    itemCount: _mainHomeController.productList.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        child: InkWell(
+                          highlightColor:
+                              const Color.fromARGB(255, 124, 125, 126),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: screenSize.width,
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 255, 245, 236)),
+                                child: Image.asset(
+                                  _mainHomeController
+                                          .productList[index].image ??
+                                      'assets/images/product/ao_a1.png',
+                                  height: 110,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                _mainHomeController
+                                    .productList[index].productName
+                                    .toString(),
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                _mainHomeController.productList[index].price
+                                    .toString(),
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 244, 102, 4),
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 5),
-                          Text(
-                            _mainHomeController.productList[index].price
-                                .toString(),
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 244, 102, 4),
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                      onTap: () {
-                        Get.to(ProductDetailView(
-                            productId: _mainHomeController
-                                .productList[index].productId));
-                      },
-                    ),
-                  );
-                }),
+                          onTap: () {
+                            Get.to(ProductDetailView(
+                                productId: _mainHomeController
+                                    .productList[index].productId));
+                          },
+                        ),
+                      );
+                    }),
           )
         ],
       ),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:clothes_app/app/modules/onboarding/models/login_model.dart';
+import 'package:clothes_app/app/modules/onboarding/models/product_model.dart';
 import 'package:clothes_app/app/modules/onboarding/models/token_model.dart';
 import 'package:clothes_app/app/modules/onboarding/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,8 @@ class LoginController extends GetxController {
   static const String KEY_USER_EMAIL = 'userEmail';
   static const String KEY_USER_TOKEN = 'userToken';
   static const String KEY_PROFILE_ID = 'profileID';
+
+  List productListByUser = <ProductModel>[].obs;
 
   bool isAuthenticated = false;
 
@@ -65,7 +68,6 @@ class LoginController extends GetxController {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessToken'
     };
-    print('HEADERS $headers');
     http.Response response = await http
         .get(Uri.parse('http://192.168.1.1:8080/api/auth/profile_user'),
             headers: headers)
@@ -91,6 +93,39 @@ class LoginController extends GetxController {
         prefs.setInt(KEY_PROFILE_ID, profile.userId!.toInt());
       }
     }
+  }
+
+  Future<void> fetchProductByUser() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString(KEY_USER_TOKEN);
+
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+    http.Response response = await http.get(
+        Uri.parse('http://192.168.1.1:8080/api/auth/product_user'),
+        headers: headers);
+
+    if (token != null && token.isNotEmpty) {
+      if (response.statusCode == 200) {
+        List<dynamic> list = json.decode(utf8.decode(response.bodyBytes));
+        for (var item in list) {
+          ProductModel productModel = ProductModel.fromJson(Map.from(item));
+          productListByUser.add(productModel);
+        }
+
+        update();
+      } else {
+        Get.snackbar('Error Loading data!',
+            'Sever responded: ${response.statusCode}:${response.reasonPhrase.toString()}');
+      }
+    }
+  }
+
+  ProductModel getProductUserById(int productId) {
+    return productListByUser
+        .firstWhere((product) => product.productId == productId);
   }
 
   void logout() {

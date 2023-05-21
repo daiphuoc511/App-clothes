@@ -98,6 +98,8 @@ class ProfileView extends GetView<LoginController> {
                         height: 15,
                       ),
                       TextFormField(
+                        textCapitalization: TextCapitalization.words,
+                        initialValue: _loginController.profile.email,
                         decoration: const InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderSide:

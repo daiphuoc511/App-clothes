@@ -1,3 +1,4 @@
+import 'package:clothes_app/app/modules/home/controllers/home_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/models/login_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
   final LoginController _loginController = Get.put(LoginController());
+  final HomeController _homeController = Get.put(HomeController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   LoginModel data = LoginModel();
@@ -193,8 +195,10 @@ class LoginView extends GetView<LoginController> {
 
       LoginResponse loginResponse = await _loginController.login(data);
       if (loginResponse.status == 200) {
+        _homeController.currentIndex.value = 0;
         await _loginController.getAndParseProfile();
-        Get.offAndToNamed(Routes.HOME, id: 1);
+        await _loginController.fetchProductByUser();
+        await Get.toNamed(Routes.HOME);
         print("OK");
       }
     }

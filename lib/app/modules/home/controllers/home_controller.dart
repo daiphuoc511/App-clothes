@@ -23,7 +23,12 @@ class HomeController extends GetxController {
 
   void changePage(int index) {
     currentIndex.value = index;
-    Get.offAndToNamed(pages[index], id: 1);
+    // Get.offNamedUntil(
+    //   pages[index],
+    //   (page) => page.settings.name == '/home',
+    //   id: 1,
+    // );
+    update();
   }
 
   Route? onGenerateRoute(RouteSettings settings) {
