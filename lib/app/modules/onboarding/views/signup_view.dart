@@ -1,3 +1,5 @@
+import 'package:clothes_app/app/modules/home/controllers/home_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/models/signup_model.dart';
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,8 @@ enum Gender { Female, Male, Other }
 
 class SignupView extends GetView<SignupController> {
   final SignupController _signupController = Get.put(SignupController());
+  final LoginController _loginController = Get.put(LoginController());
+  final HomeController _homeController = Get.put(HomeController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   SignupModel data = SignupModel();
@@ -286,7 +290,10 @@ class SignupView extends GetView<SignupController> {
                                 highlightColor:
                                     const Color.fromARGB(255, 124, 125, 126),
                                 onTap: () {
-                                  Get.toNamed(Routes.LOGIN);
+                                  _loginController.isLogin.value = true;
+                                  _signupController.isSignUp.value = false;
+                                  _homeController.currentIndex.value = 2;
+                                  Get.toNamed(Routes.HOME);
                                 },
                                 child: const Text(
                                   'Đăng nhập',
@@ -336,7 +343,39 @@ class SignupView extends GetView<SignupController> {
 
     SignUpResponse signUpResponse = await _signupController.signUp(data);
     if (signUpResponse.status == 200) {
-       Get.offAndToNamed(Routes.LOGIN);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          Future.delayed(const Duration(seconds: 3), () {
+            Navigator.of(context).pop();
+          });
+          return AlertDialog(
+            backgroundColor: Colors.black54,
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'assets/images/icon_success.png',
+                  width: 100,
+                  height: 100,
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Đăng kí thành công',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      );
+      _loginController.isLogin.value = true;
+      _signupController.isSignUp.value = false;
+      _homeController.currentIndex.value = 2;
+      await Get.toNamed(Routes.HOME);
     }
   }
 }

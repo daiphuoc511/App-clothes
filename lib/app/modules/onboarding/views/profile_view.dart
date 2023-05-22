@@ -119,6 +119,8 @@ class ProfileView extends GetView<LoginController> {
                       Visibility(
                           visible: true,
                           child: DateTimeFormField(
+                            initialValue: DateFormat("dd/MM/yyyy").parse(
+                                _loginController.profile.birthday.toString()),
                             decoration: const InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderSide:

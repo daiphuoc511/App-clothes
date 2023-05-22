@@ -30,6 +30,7 @@ class LoginController extends GetxController {
   List productListByUser = <ProductModel>[].obs;
 
   bool isAuthenticated = false;
+  RxBool isLogin = true.obs;
 
   @override
   void onInit() {
