@@ -25,6 +25,7 @@ class SignupController extends GetxController {
   RxBool checkbox_count = false.obs;
 
   RxString selectedGender = 'male'.obs;
+  RxBool isSignUp = false.obs;
 
   @override
   void onInit() {

@@ -42,9 +42,13 @@ class MainHomeView extends GetView<MainHomeController> {
       padding: const EdgeInsets.all(10),
       child: ListView(
         children: <Widget>[
-          const Text(
-            'Chào mừng',
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+          Wrap(
+            children: const [
+              Text(
+                'Chào mừng',
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+              )
+            ],
           ),
           const SizedBox(
             height: 10,

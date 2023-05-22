@@ -1,4 +1,5 @@
 import 'package:clothes_app/app/modules/home/controllers/home_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/controllers/signup_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/models/login_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
   final LoginController _loginController = Get.put(LoginController());
+  final SignupController _signupController = Get.put(SignupController());
   final HomeController _homeController = Get.put(HomeController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -146,7 +148,12 @@ class LoginView extends GetView<LoginController> {
                                 highlightColor:
                                     const Color.fromARGB(255, 124, 125, 126),
                                 onTap: () {
-                                  Get.toNamed(Routes.SIGNUP);
+                                  _loginController.isLogin.value = false;
+                                  _signupController.isSignUp.value = true;
+                                  _homeController.currentIndex.value = 2;
+                                  Get.toNamed(Routes.HOME);
+                                  print(_loginController.isLogin);
+                                  print(_signupController.isSignUp);
                                 },
                                 child: const Text(
                                   'Đăng ký',
@@ -195,10 +202,41 @@ class LoginView extends GetView<LoginController> {
 
       LoginResponse loginResponse = await _loginController.login(data);
       if (loginResponse.status == 200) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            Future.delayed(const Duration(seconds: 3), () {
+              Navigator.of(context).pop();
+            });
+            return AlertDialog(
+              backgroundColor: Colors.black54,
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    'assets/images/icon_success.png',
+                    width: 100,
+                    height: 100,
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Đăng nhập thành công',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+          barrierColor: Colors.transparent,
+        );
         _homeController.currentIndex.value = 0;
         await _loginController.getAndParseProfile();
         await _loginController.fetchProductByUser();
         await Get.toNamed(Routes.HOME);
+
         print("OK");
       }
     }

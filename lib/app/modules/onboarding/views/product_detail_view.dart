@@ -1,3 +1,4 @@
+import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/mainhome_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -7,6 +8,7 @@ import '../../../routes/app_pages.dart';
 
 class ProductDetailView extends GetView<MainHomeController> {
   final MainHomeController _mainHomeController = Get.put(MainHomeController());
+  final LoginController _loginController = Get.put(LoginController());
   final int productId;
 
   ProductDetailView({required this.productId});
@@ -25,7 +27,9 @@ class ProductDetailView extends GetView<MainHomeController> {
         bottomOpacity: 0.0,
         elevation: 0.0,
       ),
-      body: buildProductDetailPage(context),
+      body: _loginController.isAuthenticated
+          ? buildProductUserDetailPage(context)
+          : buildProductDetailPage(context),
       bottomNavigationBar: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -71,6 +75,7 @@ class ProductDetailView extends GetView<MainHomeController> {
   buildProductDetailPage(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     var product = _mainHomeController.getProductById(productId);
+
     return Container(
       padding: const EdgeInsets.all(0),
       child: ListView(
@@ -104,6 +109,53 @@ class ProductDetailView extends GetView<MainHomeController> {
             padding: const EdgeInsets.all(10.0),
             child: Text(
               product.price.toString(),
+              style: const TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
+            ),
+          ),
+          const SizedBox(height: 10),
+          builDescription(context),
+        ],
+      ),
+    );
+  }
+
+  buildProductUserDetailPage(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    var productUser = _loginController.getProductUserById(productId);
+
+    return Container(
+      padding: const EdgeInsets.all(0),
+      child: ListView(
+        children: [
+          Container(
+            width: screenSize.width,
+            decoration:
+                const BoxDecoration(color: Color.fromARGB(255, 255, 245, 236)),
+            child: Align(
+              alignment: Alignment.center,
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(0)),
+                child: Image.asset(
+                  productUser.image ?? 'assets/images/product/ao_a1.png',
+                  width: screenSize.width,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              productUser.productName.toString(),
+              textAlign: TextAlign.left,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              productUser.price.toString(),
               style: const TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
             ),
           ),
