@@ -27,7 +27,7 @@ class ProductDetailView extends GetView<MainHomeController> {
         bottomOpacity: 0.0,
         elevation: 0.0,
       ),
-      body: _loginController.isAuthenticated
+      body: _loginController.isAuthenticated.value
           ? buildProductUserDetailPage(context)
           : buildProductDetailPage(context),
       bottomNavigationBar: Row(

@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:clothes_app/app/modules/home/controllers/home_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/controllers/signup_controller.dart';
 import 'package:clothes_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +14,8 @@ import 'package:date_field/date_field.dart';
 
 class ProfileView extends GetView<LoginController> {
   final LoginController _loginController = Get.put(LoginController());
+  final SignupController _signupController = Get.put(SignupController());
+  final HomeController _homeController = Get.put(HomeController());
   // late ImagePickerHandler imagePicker;
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
@@ -178,7 +182,13 @@ class ProfileView extends GetView<LoginController> {
                                 ),
                                 child: const Text('Đăng xuất'),
                                 onPressed: () {
-                                  Get.toNamed(Routes.LOGIN);
+                                  _loginController.logout();
+                                  _loginController.isAuthenticated.value =
+                                      false;
+                                  _loginController.isLogin.value = true;
+                                  _signupController.isSignUp.value = false;
+                                  _homeController.currentIndex.value = 2;
+                                  Get.toNamed(Routes.HOME);
                                 },
                               ),
                             ),
