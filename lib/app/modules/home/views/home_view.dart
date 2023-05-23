@@ -26,11 +26,11 @@ class HomeView extends GetView<HomeController> {
           case 1:
             return CartView();
           case 2:
-            if (_loginController.isAuthenticated == false &&
+            if (_loginController.isAuthenticated.value == false &&
                 _loginController.isLogin.value == true &&
                 _signupController.isSignUp.value == false) {
               return LoginView();
-            } else if (_loginController.isAuthenticated == false &&
+            } else if (_loginController.isAuthenticated.value == false &&
                 _loginController.isLogin.value == false &&
                 _signupController.isSignUp.value == true) {
               return SignupView();

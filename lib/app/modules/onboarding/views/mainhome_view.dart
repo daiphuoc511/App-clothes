@@ -178,7 +178,7 @@ class MainHomeView extends GetView<MainHomeController> {
             height: 10,
           ),
           Obx(
-            () => _loginController.isAuthenticated
+            () => _loginController.isAuthenticated.value
                 ? GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(

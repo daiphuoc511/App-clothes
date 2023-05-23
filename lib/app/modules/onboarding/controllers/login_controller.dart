@@ -29,7 +29,7 @@ class LoginController extends GetxController {
 
   List productListByUser = <ProductModel>[].obs;
 
-  bool isAuthenticated = false;
+  RxBool isAuthenticated = false.obs;
   RxBool isLogin = true.obs;
 
   @override
@@ -57,7 +57,7 @@ class LoginController extends GetxController {
           await SharedPreferences.getInstance();
       sharedPreferences.setString(KEY_USER_EMAIL, loginModel.email.toString());
       sharedPreferences.setString(KEY_USER_TOKEN, token.token.toString());
-      isAuthenticated = true;
+      isAuthenticated.value = true;
 
       return LoginResponse(msg: "LOGIN SUCCESS", status: response.statusCode);
     }
@@ -129,7 +129,9 @@ class LoginController extends GetxController {
         .firstWhere((product) => product.productId == productId);
   }
 
-  void logout() {
-    Get.toNamed(Routes.LOGIN);
+  void logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(KEY_USER_TOKEN);
+    productListByUser.clear();
   }
 }
