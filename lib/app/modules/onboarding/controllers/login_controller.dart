@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:clothes_app/app/modules/onboarding/models/login_model.dart';
+import 'package:clothes_app/app/modules/onboarding/models/product_cart_model.dart';
 import 'package:clothes_app/app/modules/onboarding/models/product_model.dart';
 import 'package:clothes_app/app/modules/onboarding/models/token_model.dart';
 import 'package:clothes_app/app/modules/onboarding/models/user_model.dart';

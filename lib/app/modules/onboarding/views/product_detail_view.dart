@@ -1,15 +1,18 @@
+import 'package:clothes_app/app/modules/onboarding/controllers/cart_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/mainhome_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
-
+import 'package:group_button/group_button.dart';
 import '../../../routes/app_pages.dart';
 
 class ProductDetailView extends GetView<MainHomeController> {
   final MainHomeController _mainHomeController = Get.put(MainHomeController());
   final LoginController _loginController = Get.put(LoginController());
+  final CartController _cartController = Get.put(CartController());
   final int productId;
+  final List<String> options = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
 
   ProductDetailView({required this.productId});
 
@@ -30,7 +33,7 @@ class ProductDetailView extends GetView<MainHomeController> {
       body: _loginController.isAuthenticated.value
           ? buildProductUserDetailPage(context)
           : buildProductDetailPage(context),
-      bottomNavigationBar: Row(
+      bottomSheet: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           InkWell(
@@ -46,7 +49,9 @@ class ProductDetailView extends GetView<MainHomeController> {
                     Text('Thêm vào giỏ hàng'),
                   ],
                 )),
-            onTap: () {},
+            onTap: () {
+              _showBottomSheet(context);
+            },
           ),
           InkWell(
             child: Container(
@@ -134,7 +139,7 @@ class ProductDetailView extends GetView<MainHomeController> {
             child: Align(
               alignment: Alignment.center,
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(0)),
+                borderRadius: const BorderRadius.all(Radius.circular(0)),
                 child: Image.asset(
                   productUser.image ?? 'assets/images/product/ao_a1.png',
                   width: screenSize.width,
@@ -176,6 +181,44 @@ class ProductDetailView extends GetView<MainHomeController> {
             letterSpacing: 0.1,
             lineHeight: const LineHeight(1.5),
             textAlign: TextAlign.left)
+      },
+    );
+  }
+
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('SIZE'),
+              const SizedBox(
+                height: 15,
+              ),
+              Column(
+                children: [
+                  Center(
+                    child: Obx(
+                      () => GroupButton(
+                        isRadio: true,
+                        spacing: 10,
+                        selectedButton: _cartController.isSelectedSize.value,
+                        onSelected: (index, isSelected) {
+                          _cartController.setSelectedIndex(index);
+                        },
+                        buttons: options,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
       },
     );
   }
