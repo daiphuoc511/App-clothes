@@ -1,3 +1,5 @@
+import 'package:clothes_app/app/modules/onboarding/models/cart_model.dart';
+
 class UserModel {
   int? userId;
   String? name;
@@ -9,19 +11,20 @@ class UserModel {
   int? height;
   int? weight;
   String? email;
+  CartModel? cartModel;
 
-  UserModel({
-    this.userId,
-    this.name,
-    this.password,
-    this.avatar,
-    this.birthday,
-    this.gender,
-    this.fate,
-    this.height,
-    this.weight,
-    this.email,
-  });
+  UserModel(
+      {this.userId,
+      this.name,
+      this.password,
+      this.avatar,
+      this.birthday,
+      this.gender,
+      this.fate,
+      this.height,
+      this.weight,
+      this.email,
+      this.cartModel});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     userId = json['userId'] as int;
@@ -34,6 +37,9 @@ class UserModel {
     height = json['height'] as int;
     weight = json['weight'] as int;
     email = json['email'] as String;
+    cartModel = (json['cart'] == null
+        ? null
+        : CartModel.fromJson(json['cart'] as Map<String, dynamic>));
   }
 
   Map<String, dynamic> toJson() {
@@ -48,6 +54,7 @@ class UserModel {
     data['height'] = height;
     data['weight'] = weight;
     data['email'] = email;
+    data['cart'] = cartModel?.toJson();
     return data;
   }
 }

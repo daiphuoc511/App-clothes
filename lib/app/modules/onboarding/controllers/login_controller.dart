@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:clothes_app/app/modules/onboarding/models/cart_model.dart';
 import 'package:clothes_app/app/modules/onboarding/models/login_model.dart';
+import 'package:clothes_app/app/modules/onboarding/models/product_cart_model.dart';
 import 'package:clothes_app/app/modules/onboarding/models/product_model.dart';
 import 'package:clothes_app/app/modules/onboarding/models/token_model.dart';
 import 'package:clothes_app/app/modules/onboarding/models/user_model.dart';
@@ -23,6 +25,7 @@ class LoginController extends GetxController {
       TextEditingController(text: '');
   late TokenModel token;
   late UserModel profile;
+  late CartModel cartModel;
   static const String KEY_USER_EMAIL = 'userEmail';
   static const String KEY_USER_TOKEN = 'userToken';
   static const String KEY_PROFILE_ID = 'profileID';
@@ -92,6 +95,7 @@ class LoginController extends GetxController {
       profile = UserModel.fromJson(dataResponse);
       if (profile.userId != null) {
         prefs.setInt(KEY_PROFILE_ID, profile.userId!.toInt());
+        cartModel = profile.cartModel!;
       }
     }
   }
