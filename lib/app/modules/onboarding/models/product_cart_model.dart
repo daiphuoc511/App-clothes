@@ -23,8 +23,12 @@ class ProductCartModel {
     size = json['size'] as String;
     quantity = json['quantity'] as int;
     productPrice = json['productPrice'] as int;
-    cartModel = json['cartModel'] as CartModel;
-    productModel = json['productModel'] as ProductModel;
+    cartModel = (json['cart'] == null
+        ? null
+        : CartModel.fromJson(json['cart'] as Map<String, dynamic>));
+    productModel = (json['productModel'] == null
+        ? null
+        : ProductModel.fromJson(json['product'] as Map<String, dynamic>));
   }
 
   Map<String, dynamic> toJson() {

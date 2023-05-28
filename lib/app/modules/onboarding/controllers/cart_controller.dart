@@ -14,8 +14,11 @@ class AddToCartResponse {
 
 class CartController extends GetxController {
   static CartController get to => Get.find();
+  final LoginController _loginController = Get.put(LoginController());
 
   var quantity = 0.obs;
+  var sizeNumber = 6.obs;
+  String sizeProduct = '';
   RxInt isSelectedSize = RxInt(-1);
 
   void setSelectedIndex(int index) {
@@ -36,12 +39,26 @@ class CartController extends GetxController {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString(LoginController.KEY_USER_TOKEN);
 
+    if (sizeNumber.value == 0) {
+      sizeProduct = 'S';
+    } else if (sizeNumber.value == 1) {
+      sizeProduct = 'M';
+    } else if (sizeNumber.value == 2) {
+      sizeProduct = 'L';
+    } else if (sizeNumber.value == 3) {
+      sizeProduct = 'XL';
+    } else if (sizeNumber.value == 4) {
+      sizeProduct = 'XXL';
+    } else if (sizeNumber.value == 5) {
+      sizeProduct = 'XXXL';
+    }
+
     final data = jsonEncode({
-      "size": "${productCartModel.size}",
-      "quantity": {productCartModel.quantity},
-      "productPrice": {productCartModel.productPrice},
-      "cart": "${productCartModel.cartModel}",
-      "product": "${productCartModel.productModel}",
+      "size": sizeProduct,
+      "quantity": quantity.toInt(),
+      "productPrice": productCartModel.productPrice,
+      "cartId": _loginController.profile.cartModel?.cartId,
+      "productId": productCartModel.productModel?.productId,
     });
     print(data);
 

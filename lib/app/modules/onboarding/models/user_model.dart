@@ -37,7 +37,9 @@ class UserModel {
     height = json['height'] as int;
     weight = json['weight'] as int;
     email = json['email'] as String;
-    cartModel = json['cart'] as CartModel;
+    cartModel = (json['cart'] == null
+        ? null
+        : CartModel.fromJson(json['cart'] as Map<String, dynamic>));
   }
 
   Map<String, dynamic> toJson() {

@@ -1,6 +1,7 @@
 import 'package:clothes_app/app/modules/onboarding/controllers/cart_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/mainhome_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/models/product_cart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ class ProductDetailView extends GetView<MainHomeController> {
   final MainHomeController _mainHomeController = Get.put(MainHomeController());
   final LoginController _loginController = Get.put(LoginController());
   final CartController _cartController = Get.put(CartController());
+  ProductCartModel data = ProductCartModel();
   final int productId;
   final List<String> options = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
 
@@ -127,6 +129,7 @@ class ProductDetailView extends GetView<MainHomeController> {
   buildProductUserDetailPage(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     var productUser = _loginController.getProductUserById(productId);
+    data.productModel = productUser;
 
     return Container(
       padding: const EdgeInsets.all(0),
@@ -186,40 +189,214 @@ class ProductDetailView extends GetView<MainHomeController> {
   }
 
   void _showBottomSheet(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    var productUser = _loginController.getProductUserById(productId);
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('SIZE'),
-              const SizedBox(
-                height: 15,
-              ),
-              Column(
+        return ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(
-                    child: Obx(
-                      () => GroupButton(
-                        isRadio: true,
-                        spacing: 10,
-                        selectedButton: _cartController.isSelectedSize.value,
-                        onSelected: (index, isSelected) {
-                          _cartController.setSelectedIndex(index);
-                        },
-                        buttons: options,
+                  Row(
+                    children: [
+                      Container(
+                        width: screenSize.width / 3,
+                        decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 255, 245, 236)),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(0)),
+                            child: Image.asset(
+                              productUser.image ??
+                                  'assets/images/product/ao_a1.png',
+                              width: screenSize.width / 3,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            productUser.price.toString(),
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 244, 102, 4)),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Obx(
+                            () => _cartController.sizeNumber.value == 0
+                                ? Text('Kho: ${productUser.s}')
+                                : _cartController.sizeNumber.value == 1
+                                    ? Text('Kho: ${productUser.m}')
+                                    : _cartController.sizeNumber.value == 2
+                                        ? Text('Kho: ${productUser.l}')
+                                        : _cartController.sizeNumber.value == 3
+                                            ? Text('Kho: ${productUser.xl}')
+                                            : _cartController
+                                                        .sizeNumber.value ==
+                                                    4
+                                                ? Text(
+                                                    'Kho: ${productUser.xxl}')
+                                                : _cartController
+                                                            .sizeNumber.value ==
+                                                        5
+                                                    ? Text(
+                                                        'Kho: ${productUser.xxxl}')
+                                                    : const Text('0'),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  const Divider(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text('SIZE'),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Column(
+                    children: [
+                      Center(
+                        child: Obx(
+                          () => GroupButton(
+                            isRadio: true,
+                            spacing: 10,
+                            selectedButton:
+                                _cartController.isSelectedSize.value,
+                            onSelected: (index, isSelected) {
+                              _cartController.setSelectedIndex(index);
+                              _cartController.sizeNumber.value = index;
+                              if (_cartController.sizeNumber.value == 0) {
+                                data.size = 'S';
+                              } else if (_cartController.sizeNumber.value ==
+                                  1) {
+                                data.size = 'M';
+                              } else if (_cartController.sizeNumber.value ==
+                                  2) {
+                                data.size = 'L';
+                              } else if (_cartController.sizeNumber.value ==
+                                  3) {
+                                data.size = 'XL';
+                              } else if (_cartController.sizeNumber.value ==
+                                  4) {
+                                data.size = 'XXL';
+                              } else if (_cartController.sizeNumber.value ==
+                                  5) {
+                                data.size = 'XXXL';
+                              }
+                            },
+                            buttons: options,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Divider(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Text('Số lượng: '),
+                      const Spacer(),
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.remove),
+                            onPressed: () {
+                              _cartController.decreaseQuantity();
+                            },
+                          ),
+                          Obx(() => Text('${_cartController.quantity.value}')),
+                          IconButton(
+                            icon: const Icon(Icons.add),
+                            onPressed: () {
+                              _cartController.increaseQuantity();
+                            },
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          alignment: Alignment.center,
+                          fixedSize: const Size(250, 50),
+                          primary: const Color.fromARGB(255, 244, 101, 5),
+                        ),
+                        child: const Text('Thêm vào giỏ hàng'),
+                        onPressed: () {
+                          addToCart(context);
+                        }),
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );
+  }
+
+  void addToCart(BuildContext context) async {
+    var productUser = _loginController.getProductUserById(productId);
+    data.productPrice =
+        (_cartController.quantity.value * productUser.price!.toInt());
+    AddToCartResponse addToCartResponse = await _cartController.addToCart(data);
+    if (addToCartResponse.status == 200) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          Future.delayed(const Duration(seconds: 3), () {
+            Navigator.of(context).pop();
+          });
+          return AlertDialog(
+            backgroundColor: Colors.black54,
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'assets/images/icon_success.png',
+                  width: 100,
+                  height: 100,
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Thêm vào giỏ hàng thành công thành công',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    }
   }
 }
