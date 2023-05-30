@@ -26,7 +26,7 @@ class ProductCartModel {
     cartModel = (json['cart'] == null
         ? null
         : CartModel.fromJson(json['cart'] as Map<String, dynamic>));
-    productModel = (json['productModel'] == null
+    productModel = (json['product'] == null
         ? null
         : ProductModel.fromJson(json['product'] as Map<String, dynamic>));
   }

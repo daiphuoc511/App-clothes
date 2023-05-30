@@ -1,6 +1,7 @@
 import 'package:clothes_app/app/modules/onboarding/controllers/cart_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/mainhome_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/controllers/product_detail_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/models/product_cart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -12,6 +13,8 @@ class ProductDetailView extends GetView<MainHomeController> {
   final MainHomeController _mainHomeController = Get.put(MainHomeController());
   final LoginController _loginController = Get.put(LoginController());
   final CartController _cartController = Get.put(CartController());
+  final ProductDetailController _productDetailController =
+      Get.put(ProductDetailController());
   ProductCartModel data = ProductCartModel();
   final int productId;
   final List<String> options = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
@@ -130,6 +133,7 @@ class ProductDetailView extends GetView<MainHomeController> {
     Size screenSize = MediaQuery.of(context).size;
     var productUser = _loginController.getProductUserById(productId);
     data.productModel = productUser;
+    ProductDetailController.productModel = productUser;
 
     return Container(
       padding: const EdgeInsets.all(0),
@@ -367,6 +371,7 @@ class ProductDetailView extends GetView<MainHomeController> {
     data.productPrice =
         (_cartController.quantity.value * productUser.price!.toInt());
     AddToCartResponse addToCartResponse = await _cartController.addToCart(data);
+    CartController.productCartModel1 = data;
     if (addToCartResponse.status == 200) {
       showDialog(
         context: context,
@@ -391,6 +396,7 @@ class ProductDetailView extends GetView<MainHomeController> {
                   style: TextStyle(
                     color: Colors.white,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),

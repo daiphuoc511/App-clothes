@@ -29,6 +29,7 @@ class LoginController extends GetxController {
   static const String KEY_USER_EMAIL = 'userEmail';
   static const String KEY_USER_TOKEN = 'userToken';
   static const String KEY_PROFILE_ID = 'profileID';
+  static int KEY_PRODUCT_ID = 0;
 
   List productListByUser = <ProductModel>[].obs;
 
