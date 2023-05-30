@@ -1,4 +1,5 @@
 import 'package:clothes_app/app/modules/onboarding/controllers/cart_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +7,7 @@ import '../../../routes/app_pages.dart';
 
 class CartView extends GetView<CartController> {
   final CartController _cartController = Get.put(CartController());
+  final LoginController _loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,11 @@ class CartView extends GetView<CartController> {
         bottomOpacity: 0.0,
         elevation: 0.0,
       ),
-      body: buildCartPage(context),
+      body: Obx(
+        () => _loginController.isAuthenticated.value
+            ? buildCartPageUser(context)
+            : buildCartPage(context),
+      ),
       bottomNavigationBar: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -45,7 +51,7 @@ class CartView extends GetView<CartController> {
                             ),
                           ),
                           Text(
-                            '500000',
+                            '0',
                             style: TextStyle(
                               color: Color.fromARGB(255, 244, 102, 4),
                               fontWeight: FontWeight.bold,
@@ -83,120 +89,77 @@ class CartView extends GetView<CartController> {
     );
   }
 
+  buildCartPageUser(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: Obx(
+        () => ListView.builder(
+          primary: false,
+          shrinkWrap: true,
+          itemCount: _cartController.productCartList.length,
+          itemBuilder: (context, index) {
+            return Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    _cartController.productCartList[index].productModel.image
+                        .toString(),
+                    width: 120,
+                  ),
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  Column(
+                    children: [
+                      Text(_cartController
+                          .productCartList[index].productModel.productName
+                          .toString()),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        _cartController.productCartList[index].productPrice
+                            .toString(),
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 244, 102, 4)),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.remove),
+                            onPressed: () {
+                              _cartController.decreaseQuantity();
+                            },
+                          ),
+                          Obx(() => Text(
+                              '${_cartController.productCartList[index].quantity}')),
+                          IconButton(
+                            icon: const Icon(Icons.add),
+                            onPressed: () {
+                              _cartController.increaseQuantity();
+                            },
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
   buildCartPage(BuildContext context) {
-    // return Container(
-    //   padding: const EdgeInsets.all(10),
-    //   child: ListView(
-    //     children: [
-    //       Container(
-    //         decoration: const BoxDecoration(
-    //           color: Colors.white,
-    //         ),
-    //         child: Row(
-    //           mainAxisAlignment: MainAxisAlignment.start,
-    //           children: [
-    //             Image.asset(
-    //               'assets/images/product/ao_a1.png',
-    //               width: 120,
-    //             ),
-    //             const SizedBox(
-    //               width: 30,
-    //             ),
-    //             Column(
-    //               children: [
-    //                 const Text('Áo khoác nỉ'),
-    //                 const SizedBox(
-    //                   height: 10,
-    //                 ),
-    //                 const Text(
-    //                   '500000',
-    //                   style: TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
-    //                 ),
-    //                 const SizedBox(
-    //                   height: 10,
-    //                 ),
-    //                 Row(
-    //                   children: [
-    //                     IconButton(
-    //                       icon: Icon(Icons.remove),
-    //                       onPressed: () {
-    //                         _cartController
-    //                             .decreaseQuantity(); // Gọi phương thức giảm số lượng trong controller
-    //                       },
-    //                     ),
-    //                     Obx(() => Text(
-    //                         '${_cartController.quantity.value}')), // Hiển thị giá trị số lượng, sử dụng Obx để lắng nghe sự thay đổi của đối tượng quan sát
-    //                     IconButton(
-    //                       icon: const Icon(Icons.add),
-    //                       onPressed: () {
-    //                         _cartController
-    //                             .increaseQuantity(); // Gọi phương thức tăng số lượng trong controller
-    //                       },
-    //                     ),
-    //                   ],
-    //                 )
-    //               ],
-    //             )
-    //           ],
-    //         ),
-    //       ),
-    //       const SizedBox(
-    //         height: 10,
-    //       ),
-    //       Container(
-    //         decoration: const BoxDecoration(
-    //           color: Colors.white,
-    //         ),
-    //         child: Row(
-    //           mainAxisAlignment: MainAxisAlignment.start,
-    //           children: [
-    //             Image.asset(
-    //               'assets/images/product/ao_a1.png',
-    //               width: 120,
-    //             ),
-    //             const SizedBox(
-    //               width: 30,
-    //             ),
-    //             Column(
-    //               children: [
-    //                 const Text('Áo khoác nỉ'),
-    //                 const SizedBox(
-    //                   height: 10,
-    //                 ),
-    //                 const Text(
-    //                   '500000',
-    //                   style: TextStyle(color: Color.fromARGB(255, 244, 102, 4)),
-    //                 ),
-    //                 const SizedBox(
-    //                   height: 10,
-    //                 ),
-    //                 Row(
-    //                   children: [
-    //                     IconButton(
-    //                       icon: Icon(Icons.remove),
-    //                       onPressed: () {
-    //                         _cartController
-    //                             .decreaseQuantity(); // Gọi phương thức giảm số lượng trong controller
-    //                       },
-    //                     ),
-    //                     Obx(() => Text(
-    //                         '${_cartController.quantity.value}')), // Hiển thị giá trị số lượng, sử dụng Obx để lắng nghe sự thay đổi của đối tượng quan sát
-    //                     IconButton(
-    //                       icon: const Icon(Icons.add),
-    //                       onPressed: () {
-    //                         _cartController
-    //                             .increaseQuantity(); // Gọi phương thức tăng số lượng trong controller
-    //                       },
-    //                     ),
-    //                   ],
-    //                 )
-    //               ],
-    //             )
-    //           ],
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
+    return const Text('Bạn vui lòng đăng nhập');
   }
 }

@@ -1,4 +1,5 @@
 import 'package:clothes_app/app/modules/home/controllers/home_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/controllers/cart_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/signup_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/models/login_model.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class LoginView extends GetView<LoginController> {
   final LoginController _loginController = Get.put(LoginController());
   final SignupController _signupController = Get.put(SignupController());
   final HomeController _homeController = Get.put(HomeController());
+  final CartController _cartController = Get.put(CartController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   LoginModel data = LoginModel();
@@ -235,9 +237,8 @@ class LoginView extends GetView<LoginController> {
         _homeController.currentIndex.value = 0;
         await _loginController.getAndParseProfile();
         await _loginController.fetchProductByUser();
+        await _cartController.getCartByUser();
         await Get.toNamed(Routes.HOME);
-
-        print("OK");
       }
     }
   }
