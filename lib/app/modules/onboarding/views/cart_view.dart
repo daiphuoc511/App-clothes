@@ -160,6 +160,8 @@ class CartView extends GetView<CartController> {
   }
 
   buildCartPage(BuildContext context) {
-    return const Text('Bạn vui lòng đăng nhập');
+    return const Center(
+      child: Text('Vui lòng đăng nhập để tiếp tục sử dụng chức năng này'),
+    );
   }
 }

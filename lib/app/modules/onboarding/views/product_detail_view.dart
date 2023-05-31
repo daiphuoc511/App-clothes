@@ -55,7 +55,38 @@ class ProductDetailView extends GetView<MainHomeController> {
                   ],
                 )),
             onTap: () {
-              _showBottomSheet(context);
+              _loginController.isAuthenticated.value
+                  ? _showBottomSheet(context)
+                  : showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        Future.delayed(const Duration(seconds: 2), () {
+                          Navigator.of(context).pop();
+                        });
+                        return AlertDialog(
+                          backgroundColor: Colors.black54,
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Image.asset(
+                                'assets/images/icon_warning.png',
+                                width: 100,
+                                height: 100,
+                              ),
+                              const SizedBox(height: 8),
+                              const Text(
+                                'Vui lòng đăng nhập để tiếp tục sử dụng chức năng này',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
             },
           ),
           InkWell(
@@ -97,7 +128,7 @@ class ProductDetailView extends GetView<MainHomeController> {
             child: Align(
               alignment: Alignment.center,
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(0)),
+                borderRadius: const BorderRadius.all(Radius.circular(0)),
                 child: Image.asset(
                   product.image ?? 'assets/images/product/ao_a1.png',
                   width: screenSize.width,
@@ -376,7 +407,7 @@ class ProductDetailView extends GetView<MainHomeController> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          Future.delayed(const Duration(seconds: 3), () {
+          Future.delayed(const Duration(seconds: 2), () {
             Navigator.of(context).pop();
           });
           return AlertDialog(
@@ -403,6 +434,7 @@ class ProductDetailView extends GetView<MainHomeController> {
           );
         },
       );
+      await _cartController.getCartByUser();
     }
   }
 }

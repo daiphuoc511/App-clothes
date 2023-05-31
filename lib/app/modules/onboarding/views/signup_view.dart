@@ -346,7 +346,7 @@ class SignupView extends GetView<SignupController> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          Future.delayed(const Duration(seconds: 3), () {
+          Future.delayed(const Duration(seconds: 2), () {
             Navigator.of(context).pop();
           });
           return AlertDialog(
