@@ -138,7 +138,7 @@ class ProfileView extends GetView<LoginController> {
                               labelText: 'Ngày tháng năm sinh',
                             ),
                             mode: DateTimeFieldPickerMode.date,
-                            dateFormat: DateFormat('dd-MM-yyyy'),
+                            dateFormat: DateFormat('dd/MM/yyyy'),
                             onDateSelected: (DateTime value) {
                               print(value);
                             },
