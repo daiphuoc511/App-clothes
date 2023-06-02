@@ -176,6 +176,9 @@ class ProductDetailListManShirtView
   void _showBottomSheet(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     var product = _productListManShirtController.getProductById(productId);
+    _cartController.quantity.value = 0;
+    _cartController.sizeNumber.value = 6;
+
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -238,7 +241,7 @@ class ProductDetailListManShirtView
                                                         5
                                                     ? Text(
                                                         'Kho: ${product.xxxl}')
-                                                    : const Text('0'),
+                                                    : const Text('Kho: 0'),
                           ),
                         ],
                       )
@@ -259,8 +262,9 @@ class ProductDetailListManShirtView
                           () => GroupButton(
                             isRadio: true,
                             spacing: 10,
-                            selectedButton:
-                                _cartController.isSelectedSize.value,
+                            selectedButton: _cartController.hasSelection.value
+                                ? _cartController.isSelectedSize.value
+                                : 6,
                             onSelected: (index, isSelected) {
                               _cartController.setSelectedIndex(index);
                               _cartController.sizeNumber.value = index;
@@ -323,19 +327,35 @@ class ProductDetailListManShirtView
                   const SizedBox(
                     height: 10,
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          alignment: Alignment.center,
-                          fixedSize: const Size(250, 50),
-                          primary: const Color.fromARGB(255, 244, 101, 5),
-                        ),
-                        child: const Text('Thêm vào giỏ hàng'),
-                        onPressed: () {
-                          addToCart(context);
-                        }),
+                  Obx(
+                    () => _cartController.quantity.value == 0 ||
+                            _cartController.sizeNumber.value == 6
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 2, vertical: 2),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    alignment: Alignment.center,
+                                    fixedSize: Size(screenSize.width, 50),
+                                    primary: Colors.grey),
+                                child: const Text('Thêm vào giỏ hàng'),
+                                onPressed: () {}),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 2, vertical: 2),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  alignment: Alignment.center,
+                                  fixedSize: Size(screenSize.width, 50),
+                                  primary:
+                                      const Color.fromARGB(255, 244, 101, 5),
+                                ),
+                                child: const Text('Thêm vào giỏ hàng'),
+                                onPressed: () {
+                                  addToCart(context);
+                                }),
+                          ),
                   ),
                 ],
               ),

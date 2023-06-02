@@ -1,3 +1,4 @@
+import 'package:clothes_app/app/core/utils/validate.dart';
 import 'package:clothes_app/app/modules/home/controllers/home_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/models/signup_model.dart';
@@ -101,6 +102,13 @@ class SignupView extends GetView<SignupController> {
                               prefixIcon: const Icon(Icons.account_box,
                                   color: Colors.black, size: 30),
                             ),
+                            validator: (value) {
+                              if (value == '') {
+                                return 'Trường này không được để trống';
+                              } else {
+                                return null;
+                              }
+                            },
                             onSaved: ((newValue) {
                               data.name = newValue;
                             }),
@@ -129,8 +137,9 @@ class SignupView extends GetView<SignupController> {
                               prefixIcon: const Icon(Icons.person,
                                   color: Colors.black, size: 30),
                             ),
+                            validator: _validateEmail,
                             onSaved: ((newValue) {
-                              data.email = newValue;
+                              data.email = newValue?.toLowerCase();
                             }),
                           ),
                         ),
@@ -158,6 +167,7 @@ class SignupView extends GetView<SignupController> {
                                   color: Colors.black, size: 30),
                             ),
                             obscureText: true,
+                            validator: _validatePassword,
                             onSaved: ((newValue) {
                               data.password = newValue;
                             }),
@@ -362,10 +372,11 @@ class SignupView extends GetView<SignupController> {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  'Đăng kí thành công',
+                  'Đăng ký thành công',
                   style: TextStyle(
                     color: Colors.white,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),
@@ -376,6 +387,55 @@ class SignupView extends GetView<SignupController> {
       _signupController.isSignUp.value = false;
       _homeController.currentIndex.value = 2;
       await Get.toNamed(Routes.HOME);
+    } else if (signUpResponse.status == 500) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          Future.delayed(const Duration(seconds: 2), () {
+            Navigator.of(context).pop();
+          });
+          return AlertDialog(
+            backgroundColor: Colors.black54,
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'assets/images/icon_warning.png',
+                  width: 100,
+                  height: 100,
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Đăng ký không thành công. Vui lòng kiểm tra lại thông tin',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          );
+        },
+      );
     }
+  }
+
+  String? _validateEmail(String? value) {
+    try {
+      Validate.isEmail(value!);
+    } catch (e) {
+      return 'Email không đúng định dạng';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    try {
+      Validate.isPassword(value!);
+    } catch (e) {
+      return 'Mật khẩu phải có ít nhất 6 kí tự';
+    }
+    return null;
   }
 }

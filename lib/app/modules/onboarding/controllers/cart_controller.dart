@@ -30,6 +30,7 @@ class CartController extends GetxController {
   var sizeNumber = 6.obs;
   String sizeProduct = '';
   RxInt isSelectedSize = RxInt(-1);
+  RxBool hasSelection = false.obs;
 
   void setSelectedIndex(int index) {
     isSelectedSize.value = index;

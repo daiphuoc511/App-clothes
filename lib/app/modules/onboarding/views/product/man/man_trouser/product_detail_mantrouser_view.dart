@@ -175,6 +175,9 @@ class ProductDetailListManTrouserView
   void _showBottomSheet(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     var product = _productListManTrouserController.getProductById(productId);
+    _cartController.quantity.value = 0;
+    _cartController.sizeNumber.value = 6;
+
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -237,7 +240,7 @@ class ProductDetailListManTrouserView
                                                         5
                                                     ? Text(
                                                         'Kho: ${product.xxxl}')
-                                                    : const Text('0'),
+                                                    : const Text('Kho: 0'),
                           ),
                         ],
                       )
@@ -258,29 +261,12 @@ class ProductDetailListManTrouserView
                           () => GroupButton(
                             isRadio: true,
                             spacing: 10,
-                            selectedButton:
-                                _cartController.isSelectedSize.value,
+                            selectedButton: _cartController.hasSelection.value
+                                ? _cartController.isSelectedSize.value
+                                : 6,
                             onSelected: (index, isSelected) {
                               _cartController.setSelectedIndex(index);
                               _cartController.sizeNumber.value = index;
-                              if (_cartController.sizeNumber.value == 0) {
-                                data.size = 'S';
-                              } else if (_cartController.sizeNumber.value ==
-                                  1) {
-                                data.size = 'M';
-                              } else if (_cartController.sizeNumber.value ==
-                                  2) {
-                                data.size = 'L';
-                              } else if (_cartController.sizeNumber.value ==
-                                  3) {
-                                data.size = 'XL';
-                              } else if (_cartController.sizeNumber.value ==
-                                  4) {
-                                data.size = 'XXL';
-                              } else if (_cartController.sizeNumber.value ==
-                                  5) {
-                                data.size = 'XXXL';
-                              }
                             },
                             buttons: options,
                           ),
@@ -322,19 +308,35 @@ class ProductDetailListManTrouserView
                   const SizedBox(
                     height: 10,
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          alignment: Alignment.center,
-                          fixedSize: const Size(250, 50),
-                          primary: const Color.fromARGB(255, 244, 101, 5),
-                        ),
-                        child: const Text('Thêm vào giỏ hàng'),
-                        onPressed: () {
-                          addToCart(context);
-                        }),
+                  Obx(
+                    () => _cartController.quantity.value == 0 ||
+                            _cartController.sizeNumber.value == 6
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 2, vertical: 2),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    alignment: Alignment.center,
+                                    fixedSize: Size(screenSize.width, 50),
+                                    primary: Colors.grey),
+                                child: const Text('Thêm vào giỏ hàng'),
+                                onPressed: () {}),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 2, vertical: 2),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  alignment: Alignment.center,
+                                  fixedSize: Size(screenSize.width, 50),
+                                  primary:
+                                      const Color.fromARGB(255, 244, 101, 5),
+                                ),
+                                child: const Text('Thêm vào giỏ hàng'),
+                                onPressed: () {
+                                  addToCart(context);
+                                }),
+                          ),
                   ),
                 ],
               ),
