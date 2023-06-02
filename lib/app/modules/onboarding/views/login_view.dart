@@ -1,3 +1,4 @@
+import 'package:clothes_app/app/core/utils/validate.dart';
 import 'package:clothes_app/app/modules/home/controllers/home_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/cart_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/signup_controller.dart';
@@ -82,10 +83,11 @@ class LoginView extends GetView<LoginController> {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              hintText: 'Username',
+                              hintText: 'Email',
                               prefixIcon: const Icon(Icons.person,
                                   color: Colors.black, size: 30),
                             ),
+                            validator: _validateEmail,
                             onSaved: (newValue) {
                               data.email = newValue;
                             },
@@ -115,6 +117,7 @@ class LoginView extends GetView<LoginController> {
                                   color: Colors.black, size: 30),
                             ),
                             obscureText: true,
+                            validator: _validatePassword,
                             onSaved: (newValue) {
                               data.password = newValue;
                             },
@@ -154,8 +157,6 @@ class LoginView extends GetView<LoginController> {
                                   _signupController.isSignUp.value = true;
                                   _homeController.currentIndex.value = 2;
                                   Get.toNamed(Routes.HOME);
-                                  print(_loginController.isLogin);
-                                  print(_signupController.isSignUp);
                                 },
                                 child: const Text(
                                   'Đăng ký',
@@ -227,6 +228,7 @@ class LoginView extends GetView<LoginController> {
                     style: TextStyle(
                       color: Colors.white,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),
@@ -239,8 +241,58 @@ class LoginView extends GetView<LoginController> {
         await _loginController.fetchProductByUser();
         await _cartController.getCartByUser();
         await Get.toNamed(Routes.HOME);
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            Future.delayed(const Duration(seconds: 2), () {
+              Navigator.of(context).pop();
+            });
+            return AlertDialog(
+              backgroundColor: Colors.black54,
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    'assets/images/icon_warning.png',
+                    width: 100,
+                    height: 100,
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Email hoặc mật khẩu không đúng. Vui lòng kiểm tra lại thông tin đăng nhập',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            );
+          },
+          barrierColor: Colors.transparent,
+        );
       }
     }
+  }
+
+  String? _validateEmail(String? value) {
+    try {
+      Validate.isEmail(value!);
+    } catch (e) {
+      return 'Email không đúng định dạng';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    try {
+      Validate.isPassword(value!);
+    } catch (e) {
+      return 'Mật khẩu phải có ít nhất 6 kí tự';
+    }
+    return null;
   }
 }
 
