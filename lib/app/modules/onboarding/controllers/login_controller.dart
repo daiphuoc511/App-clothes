@@ -19,10 +19,6 @@ class LoginResponse {
 
 class LoginController extends GetxController {
   static LoginController get to => Get.find();
-
-  final TextEditingController emailController = TextEditingController(text: '');
-  final TextEditingController passwordController =
-      TextEditingController(text: '');
   late TokenModel token;
   late UserModel profile;
   late CartModel cartModel;

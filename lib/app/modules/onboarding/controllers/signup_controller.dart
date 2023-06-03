@@ -14,16 +14,6 @@ class SignUpResponse {
 class SignupController extends GetxController {
   static SignupController get to => Get.find();
 
-  final TextEditingController emailController = TextEditingController(text: '');
-  final TextEditingController passwordController =
-      TextEditingController(text: '');
-  final TextEditingController nameController = TextEditingController(text: '');
-  TextEditingController birthdayController = TextEditingController(text: '');
-  final TextEditingController genderController =
-      TextEditingController(text: '');
-
-  RxBool checkbox_count = false.obs;
-
   RxString selectedGender = 'male'.obs;
   RxBool isSignUp = false.obs;
 
@@ -52,6 +42,8 @@ class SignupController extends GetxController {
 
     if (response.statusCode == 200) {
       print("SIGN UP SUCCESS");
+      return SignUpResponse(
+          msg: "SIGN UP SUCCESS", status: response.statusCode);
     }
 
     return SignUpResponse(msg: response.body, status: response.statusCode);

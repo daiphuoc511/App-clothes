@@ -267,6 +267,7 @@ class ProductDetailListManTrouserView
                             onSelected: (index, isSelected) {
                               _cartController.setSelectedIndex(index);
                               _cartController.sizeNumber.value = index;
+                              _cartController.quantity.value = 0;
                             },
                             buttons: options,
                           ),
@@ -295,11 +296,35 @@ class ProductDetailListManTrouserView
                             },
                           ),
                           Obx(() => Text('${_cartController.quantity.value}')),
-                          IconButton(
-                            icon: const Icon(Icons.add),
-                            onPressed: () {
-                              _cartController.increaseQuantity();
-                            },
+                          Obx(
+                            () => (_cartController.sizeNumber.value == 0 &&
+                                        _cartController.quantity.value ==
+                                            product.s) ||
+                                    (_cartController.sizeNumber.value == 1 &&
+                                        _cartController.quantity.value ==
+                                            product.m) ||
+                                    (_cartController.sizeNumber.value == 2 &&
+                                        _cartController.quantity.value ==
+                                            product.l) ||
+                                    (_cartController.sizeNumber.value == 3 &&
+                                        _cartController.quantity.value ==
+                                            product.xl) ||
+                                    (_cartController.sizeNumber.value == 4 &&
+                                        _cartController.quantity.value ==
+                                            product.xxl) ||
+                                    (_cartController.sizeNumber.value == 5 &&
+                                        _cartController.quantity.value ==
+                                            product.xxxl)
+                                ? IconButton(
+                                    icon: const Icon(Icons.add),
+                                    onPressed: () {},
+                                  )
+                                : IconButton(
+                                    icon: const Icon(Icons.add),
+                                    onPressed: () {
+                                      _cartController.increaseQuantity();
+                                    },
+                                  ),
                           ),
                         ],
                       )

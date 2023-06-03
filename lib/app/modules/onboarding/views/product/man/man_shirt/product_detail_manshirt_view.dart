@@ -268,24 +268,7 @@ class ProductDetailListManShirtView
                             onSelected: (index, isSelected) {
                               _cartController.setSelectedIndex(index);
                               _cartController.sizeNumber.value = index;
-                              if (_cartController.sizeNumber.value == 0) {
-                                data.size = 'S';
-                              } else if (_cartController.sizeNumber.value ==
-                                  1) {
-                                data.size = 'M';
-                              } else if (_cartController.sizeNumber.value ==
-                                  2) {
-                                data.size = 'L';
-                              } else if (_cartController.sizeNumber.value ==
-                                  3) {
-                                data.size = 'XL';
-                              } else if (_cartController.sizeNumber.value ==
-                                  4) {
-                                data.size = 'XXL';
-                              } else if (_cartController.sizeNumber.value ==
-                                  5) {
-                                data.size = 'XXXL';
-                              }
+                              _cartController.quantity.value = 0;
                             },
                             buttons: options,
                           ),
@@ -314,11 +297,35 @@ class ProductDetailListManShirtView
                             },
                           ),
                           Obx(() => Text('${_cartController.quantity.value}')),
-                          IconButton(
-                            icon: const Icon(Icons.add),
-                            onPressed: () {
-                              _cartController.increaseQuantity();
-                            },
+                          Obx(
+                            () => (_cartController.sizeNumber.value == 0 &&
+                                        _cartController.quantity.value ==
+                                            product.s) ||
+                                    (_cartController.sizeNumber.value == 1 &&
+                                        _cartController.quantity.value ==
+                                            product.m) ||
+                                    (_cartController.sizeNumber.value == 2 &&
+                                        _cartController.quantity.value ==
+                                            product.l) ||
+                                    (_cartController.sizeNumber.value == 3 &&
+                                        _cartController.quantity.value ==
+                                            product.xl) ||
+                                    (_cartController.sizeNumber.value == 4 &&
+                                        _cartController.quantity.value ==
+                                            product.xxl) ||
+                                    (_cartController.sizeNumber.value == 5 &&
+                                        _cartController.quantity.value ==
+                                            product.xxxl)
+                                ? IconButton(
+                                    icon: const Icon(Icons.add),
+                                    onPressed: () {},
+                                  )
+                                : IconButton(
+                                    icon: const Icon(Icons.add),
+                                    onPressed: () {
+                                      _cartController.increaseQuantity();
+                                    },
+                                  ),
                           ),
                         ],
                       )
