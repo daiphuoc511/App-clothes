@@ -71,7 +71,6 @@ class LoginView extends GetView<LoginController> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 25),
                           child: TextFormField(
-                            controller: _loginController.emailController,
                             keyboardType: TextInputType.emailAddress,
                             style: const TextStyle(
                                 color: Colors.black, fontSize: 15),
@@ -100,7 +99,6 @@ class LoginView extends GetView<LoginController> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 25),
                           child: TextFormField(
-                            controller: _loginController.passwordController,
                             keyboardType: TextInputType.visiblePassword,
                             style: const TextStyle(
                                 color: Colors.black, fontSize: 15),

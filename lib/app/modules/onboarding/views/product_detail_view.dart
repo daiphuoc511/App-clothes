@@ -319,6 +319,7 @@ class ProductDetailView extends GetView<MainHomeController> {
                             onSelected: (index, isSelected) {
                               _cartController.setSelectedIndex(index);
                               _cartController.sizeNumber.value = index;
+                              _cartController.quantity.value = 0;
                             },
                             buttons: options,
                           ),
@@ -347,11 +348,35 @@ class ProductDetailView extends GetView<MainHomeController> {
                             },
                           ),
                           Obx(() => Text('${_cartController.quantity.value}')),
-                          IconButton(
-                            icon: const Icon(Icons.add),
-                            onPressed: () {
-                              _cartController.increaseQuantity();
-                            },
+                          Obx(
+                            () => (_cartController.sizeNumber.value == 0 &&
+                                        _cartController.quantity.value ==
+                                            productUser.s) ||
+                                    (_cartController.sizeNumber.value == 1 &&
+                                        _cartController.quantity.value ==
+                                            productUser.m) ||
+                                    (_cartController.sizeNumber.value == 2 &&
+                                        _cartController.quantity.value ==
+                                            productUser.l) ||
+                                    (_cartController.sizeNumber.value == 3 &&
+                                        _cartController.quantity.value ==
+                                            productUser.xl) ||
+                                    (_cartController.sizeNumber.value == 4 &&
+                                        _cartController.quantity.value ==
+                                            productUser.xxl) ||
+                                    (_cartController.sizeNumber.value == 5 &&
+                                        _cartController.quantity.value ==
+                                            productUser.xxxl)
+                                ? IconButton(
+                                    icon: const Icon(Icons.add),
+                                    onPressed: () {},
+                                  )
+                                : IconButton(
+                                    icon: const Icon(Icons.add),
+                                    onPressed: () {
+                                      _cartController.increaseQuantity();
+                                    },
+                                  ),
                           ),
                         ],
                       )

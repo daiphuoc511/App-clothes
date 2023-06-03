@@ -86,7 +86,6 @@ class SignupView extends GetView<SignupController> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 25),
                           child: TextFormField(
-                            controller: _signupController.nameController,
                             keyboardType: TextInputType.emailAddress,
                             style: const TextStyle(
                                 color: Colors.black, fontSize: 15),
@@ -121,7 +120,6 @@ class SignupView extends GetView<SignupController> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 25),
                           child: TextFormField(
-                            controller: _signupController.emailController,
                             keyboardType: TextInputType.emailAddress,
                             style: const TextStyle(
                                 color: Colors.black, fontSize: 15),
@@ -150,7 +148,6 @@ class SignupView extends GetView<SignupController> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 25),
                           child: TextFormField(
-                            controller: _signupController.passwordController,
                             keyboardType: TextInputType.visiblePassword,
                             style: const TextStyle(
                                 color: Colors.black, fontSize: 15),
