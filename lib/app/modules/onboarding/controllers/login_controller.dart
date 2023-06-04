@@ -20,11 +20,10 @@ class LoginResponse {
 class LoginController extends GetxController {
   static LoginController get to => Get.find();
   late TokenModel token;
-  late UserModel profile;
   late CartModel cartModel;
   static const String KEY_USER_EMAIL = 'userEmail';
   static const String KEY_USER_TOKEN = 'userToken';
-  static const String KEY_PROFILE_ID = 'profileID';
+  static const String KEY_PROFILE_ID = 'profileId';
   static int KEY_PRODUCT_ID = 0;
 
   List productListByUser = <ProductModel>[].obs;
@@ -62,39 +61,6 @@ class LoginController extends GetxController {
       return LoginResponse(msg: "LOGIN SUCCESS", status: response.statusCode);
     }
     return LoginResponse(msg: response.body, status: response.statusCode);
-  }
-
-  Future<dynamic> getProfile(String accessToken) async {
-    Map<String, String> headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $accessToken'
-    };
-    http.Response response = await http
-        .get(Uri.parse('http://192.168.1.1:8080/api/auth/profile_user'),
-            headers: headers)
-        .catchError(
-      (error) {
-        return Future.error(error);
-      },
-    );
-    print('PROFILE RESPONE: ${utf8.decode(response.bodyBytes)}');
-    return json.decode(utf8.decode(response.bodyBytes));
-  }
-
-  Future<void> getAndParseProfile() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? accessToken = prefs.getString(KEY_USER_TOKEN);
-
-    if (accessToken != null && accessToken.isNotEmpty) {
-      var dataResponse = await getProfile(accessToken).catchError((error) {
-        return;
-      });
-      profile = UserModel.fromJson(dataResponse);
-      if (profile.userId != null) {
-        prefs.setInt(KEY_PROFILE_ID, profile.userId!.toInt());
-        cartModel = profile.cartModel!;
-      }
-    }
   }
 
   Future<void> fetchProductByUser() async {

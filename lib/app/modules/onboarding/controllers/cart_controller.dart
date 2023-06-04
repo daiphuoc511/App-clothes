@@ -3,6 +3,7 @@ import 'dart:ffi';
 
 import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/product_detail_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/controllers/profile_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/models/product_cart_model.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,7 +23,7 @@ class CartResponse {
 
 class CartController extends GetxController {
   static CartController get to => Get.find();
-  final LoginController _loginController = Get.put(LoginController());
+  final ProfileController _profileController = Get.put(ProfileController());
   List productCartList = <ProductCartModel>[].obs;
 
   static ProductCartModel productCartModel1 = ProductCartModel();
@@ -97,7 +98,7 @@ class CartController extends GetxController {
       "quantity": quantity.toInt(),
       "productPrice": productCartModel.productPrice,
       "cart": {
-        "cartId": _loginController.profile.cartModel?.cartId,
+        "cartId": _profileController.profile.cartModel?.cartId,
       },
       "product": {
         "productId": productCartModel.productModel?.productId,
