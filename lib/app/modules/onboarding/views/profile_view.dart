@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:clothes_app/app/modules/home/controllers/home_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/signup_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/models/user_model.dart';
 import 'package:clothes_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,12 +17,15 @@ class ProfileView extends GetView<LoginController> {
   final LoginController _loginController = Get.put(LoginController());
   final SignupController _signupController = Get.put(SignupController());
   final HomeController _homeController = Get.put(HomeController());
+  final ProfileController _profileController = Get.put(ProfileController());
   // late ImagePickerHandler imagePicker;
-  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: const Text('Thông tin tài khoản',
               style: TextStyle(color: Colors.black)),
@@ -36,6 +40,7 @@ class ProfileView extends GetView<LoginController> {
   buildProfilePage(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return Form(
+        key: _formKey,
         onChanged: () {},
         child: ListView(
           children: <Widget>[
@@ -84,7 +89,7 @@ class ProfileView extends GetView<LoginController> {
                       ),
                       TextFormField(
                         textCapitalization: TextCapitalization.words,
-                        initialValue: _loginController.profile.name,
+                        initialValue: _profileController.profile.name,
                         decoration: const InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderSide:
@@ -97,13 +102,17 @@ class ProfileView extends GetView<LoginController> {
                           labelText: 'Nhập tên của bạn',
                           prefixIcon: Icon(Icons.account_box),
                         ),
+                        onSaved: (newValue) {
+                          _profileController.profile.name = newValue;
+                        },
                       ),
                       const SizedBox(
                         height: 15,
                       ),
                       TextFormField(
                         textCapitalization: TextCapitalization.words,
-                        initialValue: _loginController.profile.email,
+                        initialValue: _profileController.profile.email,
+                        readOnly: true,
                         decoration: const InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderSide:
@@ -121,28 +130,33 @@ class ProfileView extends GetView<LoginController> {
                         height: 15,
                       ),
                       Visibility(
-                          visible: true,
-                          child: DateTimeFormField(
-                            initialValue: DateFormat("dd/MM/yyyy").parse(
-                                _loginController.profile.birthday.toString()),
-                            decoration: const InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 1.0),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 1.0),
-                              ),
-                              prefixIcon: Icon(Icons.calendar_today),
-                              labelText: 'Ngày tháng năm sinh',
+                        visible: true,
+                        child: DateTimeFormField(
+                          initialValue: DateFormat("dd/MM/yyyy").parse(
+                              _profileController.profile.birthday.toString()),
+                          decoration: const InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 1.0),
                             ),
-                            mode: DateTimeFieldPickerMode.date,
-                            dateFormat: DateFormat('dd/MM/yyyy'),
-                            onDateSelected: (DateTime value) {
-                              print(value);
-                            },
-                          )),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 1.0),
+                            ),
+                            prefixIcon: Icon(Icons.calendar_today),
+                            labelText: 'Ngày tháng năm sinh',
+                          ),
+                          mode: DateTimeFieldPickerMode.date,
+                          dateFormat: DateFormat('dd/MM/yyyy'),
+                          onDateSelected: (DateTime value) {
+                            print(value);
+                          },
+                          onSaved: (newValue) {
+                            _profileController.profile.birthday =
+                                "${newValue!.day}/${newValue.month}/${newValue.year}";
+                          },
+                        ),
+                      ),
                       const SizedBox(
                         height: 40,
                       ),
@@ -163,7 +177,9 @@ class ProfileView extends GetView<LoginController> {
                                         const Color.fromARGB(255, 244, 101, 5),
                                   ),
                                   child: const Text('Lưu'),
-                                  onPressed: () {}),
+                                  onPressed: () {
+                                    _updateProfile(context);
+                                  }),
                             ),
                             const SizedBox(
                               width: 10,
@@ -202,5 +218,55 @@ class ProfileView extends GetView<LoginController> {
             )
           ],
         ));
+  }
+
+  void _updateProfile(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+
+      UpdateProfileResponse updateProfileResponse =
+          await _profileController.updateProfile(
+              _profileController.profile.name.toString(),
+              _profileController.profile.birthday.toString(),
+              _profileController.profile.gender!.toInt(),
+              0,
+              0);
+      if (updateProfileResponse.status == 200) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            Future.delayed(const Duration(seconds: 2), () {
+              Navigator.of(context).pop();
+            });
+            return AlertDialog(
+              backgroundColor: Colors.black54,
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    'assets/images/icon_success.png',
+                    width: 100,
+                    height: 100,
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Cập nhật thông tin cá nhân thành công',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            );
+          },
+          barrierColor: Colors.transparent,
+        );
+        _profileController.getAndParseProfile();
+        _loginController.productListByUser.clear();
+        _loginController.fetchProductByUser();
+      }
+    }
   }
 }

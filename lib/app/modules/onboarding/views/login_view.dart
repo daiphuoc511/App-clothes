@@ -1,6 +1,7 @@
 import 'package:clothes_app/app/core/utils/validate.dart';
 import 'package:clothes_app/app/modules/home/controllers/home_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/cart_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/controllers/profile_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/signup_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/models/login_model.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class LoginView extends GetView<LoginController> {
   final SignupController _signupController = Get.put(SignupController());
   final HomeController _homeController = Get.put(HomeController());
   final CartController _cartController = Get.put(CartController());
+  final ProfileController _profileController = Get.put(ProfileController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   LoginModel data = LoginModel();
@@ -235,7 +237,7 @@ class LoginView extends GetView<LoginController> {
           barrierColor: Colors.transparent,
         );
         _homeController.currentIndex.value = 0;
-        await _loginController.getAndParseProfile();
+        await _profileController.getAndParseProfile();
         await _loginController.fetchProductByUser();
         await _cartController.getCartByUser();
         await Get.toNamed(Routes.HOME);
