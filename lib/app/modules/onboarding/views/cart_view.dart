@@ -122,6 +122,11 @@ class CartView extends GetView<CartController> {
                         height: 10,
                       ),
                       Text(
+                          "Size: ${_cartController.productCartList[index].size.toString()}"),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
                         _cartController.productCartList[index].productPrice
                             .toString(),
                         style: const TextStyle(

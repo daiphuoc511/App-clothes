@@ -1,5 +1,6 @@
 import 'package:clothes_app/app/modules/onboarding/models/cart_model.dart';
 import 'package:clothes_app/app/modules/onboarding/models/product_model.dart';
+import 'package:get/get.dart';
 
 class ProductCartModel {
   int? productCartId;
@@ -9,14 +10,13 @@ class ProductCartModel {
   CartModel? cartModel;
   ProductModel? productModel;
 
-  ProductCartModel({
-    this.productCartId,
-    this.size,
-    this.quantity,
-    this.productPrice,
-    this.cartModel,
-    this.productModel,
-  });
+  ProductCartModel(
+      {this.productCartId,
+      this.size,
+      this.quantity,
+      this.productPrice,
+      this.cartModel,
+      this.productModel});
 
   ProductCartModel.fromJson(Map<String, dynamic> json) {
     productCartId = json['productCartId'] as int;
