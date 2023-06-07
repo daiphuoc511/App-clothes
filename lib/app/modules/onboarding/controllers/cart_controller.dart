@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/product_detail_controller.dart';
@@ -117,7 +116,7 @@ class CartController extends GetxController {
 
     if (token != null && token.isNotEmpty) {
       if (response.statusCode == 200) {
-        print("ADD PRODUCT TO CARTT SUCCESS");
+        print("ADD PRODUCT TO CART SUCCESS");
       } else {
         Get.snackbar('Error Loading data!',
             'Sever responded: ${response.statusCode}:${response.reasonPhrase.toString()}');

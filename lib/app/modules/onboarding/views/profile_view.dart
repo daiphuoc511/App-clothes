@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:clothes_app/app/modules/onboarding/controllers/cart_controller.dart';
 import 'package:clothes_app/app/modules/home/controllers/home_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/signup_controller.dart';
@@ -18,6 +19,7 @@ class ProfileView extends GetView<LoginController> {
   final SignupController _signupController = Get.put(SignupController());
   final HomeController _homeController = Get.put(HomeController());
   final ProfileController _profileController = Get.put(ProfileController());
+  final CartController _cartController = Get.put(CartController());
   // late ImagePickerHandler imagePicker;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -199,6 +201,7 @@ class ProfileView extends GetView<LoginController> {
                                 child: const Text('Đăng xuất'),
                                 onPressed: () {
                                   _loginController.logout();
+                                  _cartController.productCartList.clear();
                                   _loginController.isAuthenticated.value =
                                       false;
                                   _loginController.isLogin.value = true;
