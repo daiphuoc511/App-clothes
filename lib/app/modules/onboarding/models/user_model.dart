@@ -8,8 +8,8 @@ class UserModel {
   String? birthday;
   int? gender;
   String? fate;
-  int? height;
-  int? weight;
+  String? height;
+  String? weight;
   String? email;
   CartModel? cartModel;
 
@@ -34,8 +34,8 @@ class UserModel {
     birthday = json['birthday'] as String;
     gender = json['gender'] as int;
     fate = json['fate'] as String;
-    height = json['height'] as int;
-    weight = json['weight'] as int;
+    height = json['height'] as String;
+    weight = json['weight'] as String;
     email = json['email'] as String;
     cartModel = (json['cart'] == null
         ? null

@@ -43,7 +43,6 @@ class ProfileView extends GetView<LoginController> {
     Size screenSize = MediaQuery.of(context).size;
     return Form(
         key: _formKey,
-        onChanged: () {},
         child: ListView(
           children: <Widget>[
             Padding(
@@ -160,6 +159,155 @@ class ProfileView extends GetView<LoginController> {
                         ),
                       ),
                       const SizedBox(
+                        height: 15,
+                      ),
+                      Obx(
+                        () => Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.all(0),
+                                title: const Text('Nam'),
+                                leading: Radio(
+                                  value: 'male',
+                                  groupValue:
+                                      _profileController.selectedGender.value,
+                                  onChanged: (value) {
+                                    _signupController
+                                        .selectGender(value.toString());
+                                    _profileController.profile.gender = 1;
+                                  },
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.all(0),
+                                title: const Text('Nữ'),
+                                leading: Radio(
+                                  value: 'female',
+                                  groupValue:
+                                      _profileController.selectedGender.value,
+                                  onChanged: (value) {
+                                    _signupController
+                                        .selectGender(value.toString());
+                                    _profileController.profile.gender = 0;
+                                  },
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.all(0),
+                                title: const Text('Khác'),
+                                leading: Radio(
+                                  value: 'other',
+                                  groupValue:
+                                      _profileController.selectedGender.value,
+                                  onChanged: (value) {
+                                    _signupController
+                                        .selectGender(value.toString());
+                                    _profileController.profile.gender = 2;
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: screenSize.width * 0.27,
+                            child: TextFormField(
+                              keyboardType: TextInputType.number,
+                              textCapitalization: TextCapitalization.words,
+                              initialValue:
+                                  _profileController.profile.height.toString(),
+                              decoration: const InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 1.0),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 1.0),
+                                ),
+                                labelText: 'Chiều cao',
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return null;
+                                } else {
+                                  if (int.tryParse(value)! <= 150 ||
+                                      int.tryParse(value)! >= 185) {
+                                    return 'Chiều cao phải lớn hơn 150cm hoặc nhỏ hơn 185cm';
+                                  }
+                                }
+                              },
+                              onSaved: ((newValue) {
+                                if (newValue == null || newValue.isEmpty) {
+                                  _profileController.profile.height = '';
+                                } else {
+                                  _profileController.profile.height = newValue;
+                                }
+                              }),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          const Text('cm'),
+                          const Spacer(),
+                          SizedBox(
+                            width: screenSize.width * 0.27,
+                            child: TextFormField(
+                              keyboardType: TextInputType.number,
+                              textCapitalization: TextCapitalization.words,
+                              initialValue:
+                                  _profileController.profile.weight.toString(),
+                              decoration: const InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 1.0),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 1.0),
+                                ),
+                                labelText: 'Cân nặng',
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return null;
+                                } else {
+                                  if (int.tryParse(value)! <= 40 ||
+                                      int.tryParse(value)! >= 100) {
+                                    return 'Cân nặng phải lớn hơn 40kg hoặc nhỏ hơn 100kg';
+                                  }
+                                }
+                              },
+                              onSaved: ((newValue) {
+                                if (newValue == null || newValue.isEmpty) {
+                                  _profileController.profile.weight = '';
+                                } else {
+                                  _profileController.profile.weight = newValue;
+                                }
+                              }),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          const Text('kg'),
+                        ],
+                      ),
+                      const SizedBox(
                         height: 40,
                       ),
                       Center(
@@ -232,8 +380,8 @@ class ProfileView extends GetView<LoginController> {
               _profileController.profile.name.toString(),
               _profileController.profile.birthday.toString(),
               _profileController.profile.gender!.toInt(),
-              0,
-              0);
+              _profileController.profile.height.toString(),
+              _profileController.profile.weight.toString());
       if (updateProfileResponse.status == 200) {
         showDialog(
           context: context,
