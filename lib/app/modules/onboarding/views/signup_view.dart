@@ -21,8 +21,6 @@ const kTextFieldDecoration = InputDecoration(
   ),
 );
 
-enum Gender { Female, Male, Other }
-
 class SignupView extends GetView<SignupController> {
   final SignupController _signupController = Get.put(SignupController());
   final LoginController _loginController = Get.put(LoginController());
@@ -34,7 +32,7 @@ class SignupView extends GetView<SignupController> {
 
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    Gender? gender = Gender.Male;
+    data.gender = 1;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -55,7 +53,7 @@ class SignupView extends GetView<SignupController> {
                     ),
                   ),
                   child: Container(
-                    margin: const EdgeInsets.only(top: 150),
+                    margin: const EdgeInsets.only(top: 40),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -86,7 +84,7 @@ class SignupView extends GetView<SignupController> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 25),
                           child: TextFormField(
-                            keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.name,
                             style: const TextStyle(
                                 color: Colors.black, fontSize: 15),
                             decoration: InputDecoration(
@@ -207,7 +205,7 @@ class SignupView extends GetView<SignupController> {
                           ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 5,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
@@ -269,6 +267,108 @@ class SignupView extends GetView<SignupController> {
                           ),
                         ),
                         const SizedBox(
+                          height: 5,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 25),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: screenSize.width * 0.27,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 15),
+                                  decoration: InputDecoration(
+                                    focusedBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.black, width: 1.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    hintText: 'Chiều cao',
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return null;
+                                    } else {
+                                      if (int.tryParse(value)! <= 150 ||
+                                          int.tryParse(value)! >= 185) {
+                                        return 'Chiều cao phải lớn hơn 150cm hoặc nhỏ hơn 185cm';
+                                      }
+                                    }
+                                  },
+                                  onSaved: ((newValue) {
+                                    if (newValue == null || newValue.isEmpty) {
+                                      data.height = '';
+                                    } else {
+                                      data.height = newValue;
+                                    }
+                                  }),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              const Text('cm'),
+                              const Spacer(),
+                              SizedBox(
+                                width: screenSize.width * 0.27,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 15),
+                                  decoration: InputDecoration(
+                                    focusedBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.black, width: 1.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    hintText: 'Cân nặng',
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return null;
+                                    } else {
+                                      if (int.tryParse(value)! <= 40 ||
+                                          int.tryParse(value)! >= 100) {
+                                        return 'Cân nặng phải lớn hơn 40kg hoặc nhỏ hơn 100kg';
+                                      }
+                                    }
+                                  },
+                                  onSaved: ((newValue) {
+                                    if (newValue == null || newValue.isEmpty) {
+                                      data.weight = '';
+                                    } else {
+                                      data.weight = newValue;
+                                    }
+                                  }),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              const Text('kg'),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        const Padding(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 25),
+                          child: Text(
+                            '*Nếu bạn muốn có trải nghiệm mua sắm tốt hơn, hãy cung cấp thông tin về chiều cao và cân nặng của bạn.',
+                            style: TextStyle(
+                                fontStyle: FontStyle.italic, color: Colors.red),
+                          ),
+                        ),
+                        const SizedBox(
                           height: 20,
                         ),
                         Padding(
@@ -297,6 +397,8 @@ class SignupView extends GetView<SignupController> {
                                 highlightColor:
                                     const Color.fromARGB(255, 124, 125, 126),
                                 onTap: () {
+                                  _signupController.selectedGender.value =
+                                      'male';
                                   _loginController.isLogin.value = true;
                                   _signupController.isSignUp.value = false;
                                   _homeController.currentIndex.value = 2;
@@ -346,75 +448,76 @@ class SignupView extends GetView<SignupController> {
   void signup(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-    }
 
-    SignUpResponse signUpResponse = await _signupController.signUp(data);
-    if (signUpResponse.status == 200) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          Future.delayed(const Duration(seconds: 2), () {
-            Navigator.of(context).pop();
-          });
-          return AlertDialog(
-            backgroundColor: Colors.black54,
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'assets/images/icon_success.png',
-                  width: 100,
-                  height: 100,
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  'Đăng ký thành công',
-                  style: TextStyle(
-                    color: Colors.white,
+      SignUpResponse signUpResponse = await _signupController.signUp(data);
+      if (signUpResponse.status == 200) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            Future.delayed(const Duration(seconds: 2), () {
+              Navigator.of(context).pop();
+            });
+            return AlertDialog(
+              backgroundColor: Colors.black54,
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    'assets/images/icon_success.png',
+                    width: 100,
+                    height: 100,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          );
-        },
-      );
-      _loginController.isLogin.value = true;
-      _signupController.isSignUp.value = false;
-      _homeController.currentIndex.value = 2;
-      await Get.toNamed(Routes.HOME);
-    } else if (signUpResponse.status == 500) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          Future.delayed(const Duration(seconds: 2), () {
-            Navigator.of(context).pop();
-          });
-          return AlertDialog(
-            backgroundColor: Colors.black54,
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'assets/images/icon_warning.png',
-                  width: 100,
-                  height: 100,
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  'Đăng ký không thành công. Vui lòng kiểm tra lại thông tin',
-                  style: TextStyle(
-                    color: Colors.white,
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Đăng ký thành công',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          );
-        },
-      );
+                ],
+              ),
+            );
+          },
+        );
+        _signupController.selectedGender.value = 'male';
+        _loginController.isLogin.value = true;
+        _signupController.isSignUp.value = false;
+        _homeController.currentIndex.value = 2;
+        await Get.toNamed(Routes.HOME);
+      } else if (signUpResponse.status == 500) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            Future.delayed(const Duration(seconds: 2), () {
+              Navigator.of(context).pop();
+            });
+            return AlertDialog(
+              backgroundColor: Colors.black54,
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    'assets/images/icon_warning.png',
+                    width: 100,
+                    height: 100,
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Đăng ký không thành công. Vui lòng kiểm tra lại thông tin',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      }
     }
   }
 

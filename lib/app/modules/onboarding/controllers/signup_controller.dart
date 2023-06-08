@@ -32,7 +32,9 @@ class SignupController extends GetxController {
       "email": "${signupModel.email}",
       "password": "${signupModel.password}",
       "birthday": "${signupModel.birthday}",
-      "gender": signupModel.gender
+      "gender": signupModel.gender,
+      "height": signupModel.height,
+      "weight": signupModel.weight,
     });
 
     http.Response response = await http.post(
@@ -44,6 +46,8 @@ class SignupController extends GetxController {
       print("SIGN UP SUCCESS");
       return SignUpResponse(
           msg: "SIGN UP SUCCESS", status: response.statusCode);
+    } else {
+      print(signupModel.birthday);
     }
 
     return SignUpResponse(msg: response.body, status: response.statusCode);

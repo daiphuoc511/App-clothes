@@ -20,6 +20,7 @@ class ProfileController extends GetxController {
   final LoginController _loginController = Get.put(LoginController());
   late UserModel profile;
   late CartModel cartModel;
+  RxString selectedGender = ''.obs;
 
   @override
   void onInit() {
@@ -57,12 +58,19 @@ class ProfileController extends GetxController {
         prefs.setInt(
             LoginController.KEY_PROFILE_ID.toString(), profile.userId!.toInt());
         cartModel = profile.cartModel!;
+        if (profile.gender == 0) {
+          selectedGender.value = 'female';
+        } else if (profile.gender == 1) {
+          selectedGender.value = 'male';
+        } else if (profile.gender == 2) {
+          selectedGender.value = 'other';
+        }
       }
     }
   }
 
-  Future<UpdateProfileResponse> updateProfile(
-      String name, String birthday, int gender, int height, int weight) async {
+  Future<UpdateProfileResponse> updateProfile(String name, String birthday,
+      int gender, String height, String weight) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString(LoginController.KEY_USER_TOKEN);
     final int? profileID = prefs.getInt(LoginController.KEY_PROFILE_ID);
