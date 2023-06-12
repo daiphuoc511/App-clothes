@@ -408,6 +408,7 @@ class ProductDetailListWomanDressView
         },
       );
     }
+    _cartController.productCartList.clear();
     await _cartController.getCartByUser();
   }
 }

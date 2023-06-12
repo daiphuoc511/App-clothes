@@ -410,6 +410,7 @@ class ProductDetailListManPoloView
         },
       );
     }
+    _cartController.productCartList.clear();
     await _cartController.getCartByUser();
   }
 }

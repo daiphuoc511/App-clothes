@@ -411,6 +411,7 @@ class ProductDetailListManShirtView
         },
       );
     }
+    _cartController.productCartList.clear();
     await _cartController.getCartByUser();
   }
 }

@@ -410,6 +410,7 @@ class ProductDetailListManJacketView
         },
       );
     }
+    _cartController.productCartList.clear();
     await _cartController.getCartByUser();
   }
 }

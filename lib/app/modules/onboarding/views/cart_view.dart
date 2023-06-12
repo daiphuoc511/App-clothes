@@ -43,19 +43,21 @@ class CartView extends GetView<CartController> {
                       padding: const EdgeInsets.all(10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
-                        children: const [
-                          Text(
+                        children: [
+                          const Text(
                             'Tổng thanh toán',
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
-                          Text(
-                            '0',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 244, 102, 4),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                          Obx(
+                            () => Text(
+                              _cartController.totalCart.toString(),
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 244, 102, 4),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                         ],
@@ -105,55 +107,79 @@ class CartView extends GetView<CartController> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  Obx(() => Checkbox(
+                        value: _cartController.checkboxValues[index].value,
+                        onChanged: (value) {
+                          _cartController.checkboxValues[index].value = value!;
+                          if (_cartController.checkboxValues[index].value ==
+                              true) {
+                            _cartController.totalCart =
+                                _cartController.totalCart +
+                                    _cartController
+                                        .productCartList[index].productPrice;
+                          } else {
+                            _cartController.totalCart =
+                                _cartController.totalCart -
+                                    _cartController
+                                        .productCartList[index].productPrice;
+                          }
+                        },
+                      )),
                   Image.asset(
                     _cartController.productCartList[index].productModel.image
                         .toString(),
                     width: 120,
                   ),
                   const SizedBox(
-                    width: 30,
+                    width: 20,
                   ),
-                  Column(
-                    children: [
-                      Text(_cartController
-                          .productCartList[index].productModel.productName
-                          .toString()),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                          "Size: ${_cartController.productCartList[index].size.toString()}"),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        _cartController.productCartList[index].productPrice
-                            .toString(),
-                        style: const TextStyle(
-                            color: Color.fromARGB(255, 244, 102, 4)),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.remove),
-                            onPressed: () {
-                              _cartController.decreaseQuantity();
-                            },
-                          ),
-                          Obx(() => Text(
-                              '${_cartController.productCartList[index].quantity}')),
-                          IconButton(
-                            icon: const Icon(Icons.add),
-                            onPressed: () {
-                              _cartController.increaseQuantity();
-                            },
-                          ),
-                        ],
-                      )
-                    ],
+                  Flexible(
+                    child: Column(
+                      children: [
+                        Text(
+                          _cartController
+                              .productCartList[index].productModel.productName
+                              .toString(),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                            "Size: ${_cartController.productCartList[index].size.toString()}"),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          _cartController.productCartList[index].productPrice
+                              .toString(),
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 244, 102, 4)),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.remove),
+                              onPressed: () {
+                                _cartController.decreaseQuantity();
+                              },
+                            ),
+                            Obx(() => Text(
+                                '${_cartController.productCartList[index].quantity}')),
+                            IconButton(
+                              icon: const Icon(Icons.add),
+                              onPressed: () {
+                                _cartController.increaseQuantity();
+                              },
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),

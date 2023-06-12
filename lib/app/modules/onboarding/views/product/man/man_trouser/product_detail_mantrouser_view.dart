@@ -410,6 +410,7 @@ class ProductDetailListManTrouserView
         },
       );
     }
+    _cartController.productCartList.clear();
     await _cartController.getCartByUser();
   }
 }
