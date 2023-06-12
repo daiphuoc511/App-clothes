@@ -28,6 +28,7 @@ class LoginController extends GetxController {
   static int KEY_PRODUCT_ID = 0;
 
   List productListByUser = <ProductModel>[].obs;
+  List productListBySizeUser = <ProductModel>[].obs;
 
   RxBool isAuthenticated = false.obs;
   RxBool isLogin = true.obs;
@@ -92,8 +93,41 @@ class LoginController extends GetxController {
     }
   }
 
+  Future<void> fetchProductBySizeUser() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString(KEY_USER_TOKEN);
+
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+    http.Response response = await http.get(
+        Uri.parse('http://192.168.1.1:8080/api/auth/product_size_user'),
+        headers: headers);
+
+    if (token != null && token.isNotEmpty) {
+      if (response.statusCode == 200) {
+        List<dynamic> list = json.decode(utf8.decode(response.bodyBytes));
+        for (var item in list) {
+          ProductModel productModel = ProductModel.fromJson(Map.from(item));
+          productListBySizeUser.add(productModel);
+        }
+
+        update();
+      } else {
+        Get.snackbar('Error Loading data!',
+            'Sever responded: ${response.statusCode}:${response.reasonPhrase.toString()}');
+      }
+    }
+  }
+
   ProductModel getProductUserById(int productId) {
     return productListByUser
+        .firstWhere((product) => product.productId == productId);
+  }
+
+  ProductModel getProductSizeUserById(int productId) {
+    return productListBySizeUser
         .firstWhere((product) => product.productId == productId);
   }
 
@@ -101,5 +135,6 @@ class LoginController extends GetxController {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove(KEY_USER_TOKEN);
     productListByUser.clear();
+    productListBySizeUser.clear();
   }
 }
