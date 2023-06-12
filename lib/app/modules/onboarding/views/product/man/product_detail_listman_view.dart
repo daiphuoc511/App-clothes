@@ -409,6 +409,7 @@ class ProductDetailListManView extends GetView<ProductListManController> {
         },
       );
     }
+    _cartController.productCartList.clear();
     await _cartController.getCartByUser();
   }
 }

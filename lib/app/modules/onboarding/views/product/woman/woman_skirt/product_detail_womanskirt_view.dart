@@ -408,6 +408,7 @@ class ProductDetailListWomanSkirtView
         },
       );
     }
+    _cartController.productCartList.clear();
     await _cartController.getCartByUser();
   }
 }

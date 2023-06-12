@@ -24,6 +24,8 @@ class CartController extends GetxController {
   static CartController get to => Get.find();
   final ProfileController _profileController = Get.put(ProfileController());
   List productCartList = <ProductCartModel>[].obs;
+  List checkboxValues = <RxBool>[].obs;
+  var totalCart = 0.obs;
 
   static ProductCartModel productCartModel1 = ProductCartModel();
   var quantity = 0.obs;
@@ -65,7 +67,11 @@ class CartController extends GetxController {
           ProductCartModel productCartModel =
               ProductCartModel.fromJson(Map.from(item));
           productCartList.add(productCartModel);
+          checkboxValues.add(RxBool(false));
         }
+        checkboxValues.forEach((item) {
+          print(item.value);
+        });
         update();
       } else {
         Get.snackbar('Error Loading data!',
