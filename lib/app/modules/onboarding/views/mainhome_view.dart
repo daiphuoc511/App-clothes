@@ -1,5 +1,6 @@
 import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/mainhome_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/views/product_detail_by_size_user_view.dart';
 import 'package:clothes_app/app/modules/onboarding/views/product_detail_view.dart';
 import 'package:clothes_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -170,10 +171,15 @@ class MainHomeView extends GetView<MainHomeController> {
           const SizedBox(
             height: 20,
           ),
-          const Text(
-            'Sản phẩm',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
+          _loginController.isAuthenticated.value
+              ? const Text(
+                  'Sản phẩm dành cho bạn',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                )
+              : const Text(
+                  'Sản phẩm',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
           const SizedBox(
             height: 10,
           ),
@@ -240,7 +246,8 @@ class MainHomeView extends GetView<MainHomeController> {
                           },
                         ),
                       );
-                    })
+                    },
+                  )
                 : GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -303,7 +310,87 @@ class MainHomeView extends GetView<MainHomeController> {
                         ),
                       );
                     }),
-          )
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          _loginController.isAuthenticated.value
+              ? const Text(
+                  'Sản phẩm liên quan',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                )
+              : const SizedBox.shrink(),
+          const SizedBox(
+            height: 10,
+          ),
+          Obx(
+            () => _loginController.isAuthenticated.value
+                ? GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 1,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10),
+                    primary: false,
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.all(0),
+                    itemCount: _loginController.productListBySizeUser.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        child: InkWell(
+                          highlightColor:
+                              const Color.fromARGB(255, 124, 125, 126),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: screenSize.width,
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 255, 245, 236)),
+                                child: Image.asset(
+                                  _loginController
+                                          .productListBySizeUser[index].image ??
+                                      'assets/images/product/ao_a1.png',
+                                  height: 110,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                _loginController
+                                    .productListBySizeUser[index].productName
+                                    .toString(),
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                _loginController
+                                    .productListBySizeUser[index].price
+                                    .toString(),
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 244, 102, 4),
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                          onTap: () {
+                            Get.to(ProductDetailBySizeUserView(
+                                productId: _loginController
+                                    .productListBySizeUser[index].productId));
+                          },
+                        ),
+                      );
+                    },
+                  )
+                : const SizedBox.shrink(),
+          ),
         ],
       ),
     );

@@ -239,6 +239,7 @@ class LoginView extends GetView<LoginController> {
         _homeController.currentIndex.value = 0;
         await _profileController.getAndParseProfile();
         await _loginController.fetchProductByUser();
+        await _loginController.fetchProductBySizeUser();
         await _cartController.getCartByUser();
         await Get.toNamed(Routes.HOME);
       } else {
