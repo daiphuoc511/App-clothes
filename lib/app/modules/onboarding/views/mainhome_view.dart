@@ -1,5 +1,6 @@
 import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/mainhome_controller.dart';
+import 'package:clothes_app/app/modules/onboarding/controllers/profile_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/views/product_detail_by_size_user_view.dart';
 import 'package:clothes_app/app/modules/onboarding/views/product_detail_view.dart';
 import 'package:clothes_app/app/routes/app_pages.dart';
@@ -9,6 +10,7 @@ import 'package:get/get.dart';
 class MainHomeView extends GetView<MainHomeController> {
   final MainHomeController _mainHomeController = Get.put(MainHomeController());
   final LoginController _loginController = Get.put(LoginController());
+  final ProfileController _profileController = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -44,41 +46,19 @@ class MainHomeView extends GetView<MainHomeController> {
       child: ListView(
         children: <Widget>[
           Wrap(
-            children: const [
-              Text(
-                'Chào mừng',
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-              )
+            children: [
+              _loginController.isAuthenticated.value
+                  ? Text(
+                      'Chào mừng ${_profileController.profile.name}',
+                      style: const TextStyle(
+                          fontSize: 32, fontWeight: FontWeight.bold),
+                    )
+                  : const Text(
+                      'Chào mừng',
+                      style:
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                    ),
             ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 10),
-            child: TextFormField(
-              keyboardType: TextInputType.text,
-              autofocus: false,
-              style: const TextStyle(color: Colors.black, fontSize: 16),
-              textAlignVertical: TextAlignVertical.center,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.only(left: 10),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black12, width: 1.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black12, width: 1.0),
-                ),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.black12,
-                ),
-                filled: true,
-                fillColor: Colors.white,
-                hintText: 'Tìm kiếm',
-                hintStyle: TextStyle(color: Colors.black12),
-              ),
-            ),
           ),
           const SizedBox(
             height: 20,
@@ -314,7 +294,8 @@ class MainHomeView extends GetView<MainHomeController> {
           const SizedBox(
             height: 20,
           ),
-          _loginController.isAuthenticated.value
+          _loginController.isAuthenticated.value &&
+                  _loginController.productListBySizeUser.isEmpty == false
               ? const Text(
                   'Sản phẩm liên quan',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

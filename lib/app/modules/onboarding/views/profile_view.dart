@@ -228,7 +228,7 @@ class ProfileView extends GetView<LoginController> {
                               keyboardType: TextInputType.number,
                               textCapitalization: TextCapitalization.words,
                               initialValue:
-                                  _profileController.profile.height.toString(),
+                                  _profileController.profile.height ?? '',
                               decoration: const InputDecoration(
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -270,7 +270,7 @@ class ProfileView extends GetView<LoginController> {
                               keyboardType: TextInputType.number,
                               textCapitalization: TextCapitalization.words,
                               initialValue:
-                                  _profileController.profile.weight.toString(),
+                                  _profileController.profile.weight ?? '',
                               decoration: const InputDecoration(
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -416,7 +416,9 @@ class ProfileView extends GetView<LoginController> {
         );
         _profileController.getAndParseProfile();
         _loginController.productListByUser.clear();
+        _loginController.productListBySizeUser.clear();
         _loginController.fetchProductByUser();
+        _loginController.fetchProductBySizeUser();
       }
     }
   }
