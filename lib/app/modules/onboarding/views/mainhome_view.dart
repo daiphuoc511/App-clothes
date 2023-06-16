@@ -46,18 +46,11 @@ class MainHomeView extends GetView<MainHomeController> {
       child: ListView(
         children: <Widget>[
           Wrap(
-            children: [
-              _loginController.isAuthenticated.value
-                  ? Text(
-                      'Chào mừng ${_profileController.profile.name}',
-                      style: const TextStyle(
-                          fontSize: 32, fontWeight: FontWeight.bold),
-                    )
-                  : const Text(
-                      'Chào mừng',
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                    ),
+            children: const [
+              Text(
+                'Chào mừng',
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+              ),
             ],
           ),
           const SizedBox(

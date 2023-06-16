@@ -107,13 +107,15 @@ class LoginController extends GetxController {
 
     if (token != null && token.isNotEmpty) {
       if (response.statusCode == 200) {
-        List<dynamic> list = json.decode(utf8.decode(response.bodyBytes));
-        for (var item in list) {
-          ProductModel productModel = ProductModel.fromJson(Map.from(item));
-          productListBySizeUser.add(productModel);
-        }
+        if (response.body.isNotEmpty) {
+          List<dynamic> list = json.decode(utf8.decode(response.bodyBytes));
+          for (var item in list) {
+            ProductModel productModel = ProductModel.fromJson(Map.from(item));
+            productListBySizeUser.add(productModel);
+          }
 
-        update();
+          update();
+        }
       } else {
         Get.snackbar('Error Loading data!',
             'Sever responded: ${response.statusCode}:${response.reasonPhrase.toString()}');
