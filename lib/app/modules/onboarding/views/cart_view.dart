@@ -155,7 +155,7 @@ class CartView extends GetView<CartController> {
                           Obx(
                             () => Text(
                               _cartController
-                                  .productCartList[index].productPrice
+                                  .productCartList[index].productModel.price
                                   .toString(),
                               style: const TextStyle(
                                   color: Color.fromARGB(255, 244, 102, 4)),

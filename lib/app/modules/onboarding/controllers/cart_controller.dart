@@ -28,6 +28,7 @@ class DeleteProductCartResponse {
 class CartController extends GetxController {
   static CartController get to => Get.find();
   final ProfileController _profileController = Get.put(ProfileController());
+  final LoginController _loginController = Get.put(LoginController());
   List productCartList = <ProductCartModel>[].obs;
   List checkboxValues = <RxBool>[].obs;
   List quantityList = <RxInt>[].obs;
@@ -74,7 +75,9 @@ class CartController extends GetxController {
     AddToCartResponse addToCartResponse = await addToCart(productCartList[i]);
     if (addToCartResponse.status == 200) {
       productCartList.clear();
+      _loginController.productListBySizeUser.clear();
       await getCartByUser();
+      await _loginController.fetchProductBySizeUser();
     }
   }
 

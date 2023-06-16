@@ -17,7 +17,14 @@ class ProductDetailView extends GetView<MainHomeController> {
       Get.put(ProductDetailController());
   ProductCartModel data = ProductCartModel();
   final int productId;
-  final List<String> options = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
+  final List<String> options = [
+    'S: 45-55kg, 1m5-1m55',
+    'M: 50-60kg, 1m55-1m65',
+    'L: 55-65kg, 1m6-1m7',
+    'XL: 60-70kg, 1m65-1m75',
+    'XXL: 65-75kg, 1m7-1m8',
+    'XXXL: 70kg-80kg, 1m75-1m85'
+  ];
 
   ProductDetailView({required this.productId});
 
@@ -312,10 +319,15 @@ class ProductDetailView extends GetView<MainHomeController> {
                         child: Obx(
                           () => GroupButton(
                             isRadio: true,
-                            spacing: 10,
+                            buttonWidth: screenSize.width * 0.45,
+                            spacing: 5,
                             selectedButton: _cartController.hasSelection.value
                                 ? _cartController.isSelectedSize.value
                                 : 6,
+                            unselectedTextStyle: const TextStyle(
+                                color: Colors.black, fontSize: 11),
+                            selectedTextStyle: const TextStyle(
+                                color: Colors.black, fontSize: 11),
                             onSelected: (index, isSelected) {
                               _cartController.setSelectedIndex(index);
                               _cartController.sizeNumber.value = index;
