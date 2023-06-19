@@ -419,9 +419,7 @@ class SignupView extends GetView<SignupController> {
                               child: InkWell(
                                 highlightColor:
                                     const Color.fromARGB(255, 124, 125, 126),
-                                onTap: () {
-                                  Get.toNamed(Routes.SIGNUP);
-                                },
+                                onTap: () {},
                                 child: const Text(
                                   'Quên mật khẩu',
                                   style: TextStyle(

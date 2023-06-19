@@ -120,6 +120,7 @@ class ProductDetailBySizeUserView extends GetView<LoginController> {
   buildProductBySizeUserDetailPage(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     var productUser = _loginController.getProductSizeUserById(productId);
+    data.productModel = productUser;
 
     return Container(
       padding: const EdgeInsets.all(0),
