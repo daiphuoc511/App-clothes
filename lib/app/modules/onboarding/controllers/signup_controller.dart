@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:clothes_app/app/core/remote_config.dart';
 import 'package:clothes_app/app/modules/onboarding/models/signup_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,7 +39,7 @@ class SignupController extends GetxController {
     });
 
     http.Response response = await http.post(
-        Uri.parse('http://192.168.1.1:8080/api/auth/register'),
+        Uri.parse('${RemoteConfig.config['SIGN_UP']}'),
         headers: headers,
         body: data);
 

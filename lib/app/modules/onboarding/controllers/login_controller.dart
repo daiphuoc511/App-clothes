@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:clothes_app/app/core/remote_config.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/cart_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/models/cart_model.dart';
 import 'package:clothes_app/app/modules/onboarding/models/login_model.dart';
@@ -47,7 +48,7 @@ class LoginController extends GetxController {
     final data = jsonEncode(
         {"email": "${loginModel.email}", "password": "${loginModel.password}"});
     http.Response response = await http.post(
-        Uri.parse('http://192.168.1.1:8080/api/auth/login'),
+        Uri.parse('${RemoteConfig.config['LOGIN']}'),
         headers: headers,
         body: data);
 
@@ -74,7 +75,7 @@ class LoginController extends GetxController {
       'Authorization': 'Bearer $token'
     };
     http.Response response = await http.get(
-        Uri.parse('http://192.168.1.1:8080/api/auth/product_user'),
+        Uri.parse('${RemoteConfig.config['PRODUCT_BY_USER']}'),
         headers: headers);
 
     if (token != null && token.isNotEmpty) {
@@ -102,7 +103,7 @@ class LoginController extends GetxController {
       'Authorization': 'Bearer $token'
     };
     http.Response response = await http.get(
-        Uri.parse('http://192.168.1.1:8080/api/auth/product_size_user'),
+        Uri.parse('${RemoteConfig.config['PRODUCT_BY_SIZE_USER']}'),
         headers: headers);
 
     if (token != null && token.isNotEmpty) {

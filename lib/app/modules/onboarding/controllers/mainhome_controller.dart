@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:clothes_app/app/core/remote_config.dart';
 import 'package:clothes_app/app/modules/onboarding/models/product_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -17,8 +18,8 @@ class MainHomeController extends GetxController {
   }
 
   Future<void> fetchProductByColor() async {
-    http.Response response = await http
-        .get(Uri.parse('http://192.168.1.1:8080/api/user/product_season'));
+    http.Response response =
+        await http.get(Uri.parse('${RemoteConfig.config['PRODUCT_BY_COLOR']}'));
 
     if (response.statusCode == 200) {
       List<dynamic> list = json.decode(utf8.decode(response.bodyBytes));

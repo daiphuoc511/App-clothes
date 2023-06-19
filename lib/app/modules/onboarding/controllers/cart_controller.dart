@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:clothes_app/app/core/remote_config.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/product_detail_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/profile_controller.dart';
@@ -120,7 +121,7 @@ class CartController extends GetxController {
       'Authorization': 'Bearer $token'
     };
     http.Response response = await http.get(
-        Uri.parse('http://192.168.1.1:8080/api/user/get_cart'),
+        Uri.parse('${RemoteConfig.config['CART_USER']}'),
         headers: headers);
 
     if (token != null && token.isNotEmpty) {
@@ -176,7 +177,7 @@ class CartController extends GetxController {
       'Authorization': 'Bearer $token'
     };
     http.Response response = await http.post(
-        Uri.parse('http://192.168.1.1:8080/api/user/add_to_cart'),
+        Uri.parse('${RemoteConfig.config['ADD_CART']}'),
         headers: headers,
         body: data);
 
@@ -199,8 +200,7 @@ class CartController extends GetxController {
       'Authorization': 'Bearer $token'
     };
     http.Response response = await http.delete(
-        Uri.parse(
-            'http://192.168.1.1:8080/api/user/delete_product_cart/$productCartId'),
+        Uri.parse('${RemoteConfig.config['ADD_CART']}/$productCartId'),
         headers: headers);
     if (token != null && token.isNotEmpty) {
       if (response.statusCode == 200) {

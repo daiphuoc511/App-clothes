@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ffi';
 
+import 'package:clothes_app/app/core/remote_config.dart';
 import 'package:clothes_app/app/modules/onboarding/controllers/login_controller.dart';
 import 'package:clothes_app/app/modules/onboarding/models/cart_model.dart';
 import 'package:clothes_app/app/modules/onboarding/models/user_model.dart';
@@ -34,8 +35,7 @@ class ProfileController extends GetxController {
       'Authorization': 'Bearer $accessToken'
     };
     http.Response response = await http
-        .get(Uri.parse('http://192.168.1.1:8080/api/auth/profile_user'),
-            headers: headers)
+        .get(Uri.parse('${RemoteConfig.config['PROFILE']}'), headers: headers)
         .catchError(
       (error) {
         return Future.error(error);
@@ -92,7 +92,7 @@ class ProfileController extends GetxController {
       'Authorization': 'Bearer $token'
     };
     http.Response response = await http.put(
-        Uri.parse('http://192.168.1.1:8080/api/auth/edit_user/$profileID'),
+        Uri.parse('${RemoteConfig.config['UPDATE_PROFILE']}/$profileID'),
         headers: headers,
         body: data);
 

@@ -171,7 +171,6 @@ class ProductDetailView extends GetView<MainHomeController> {
     Size screenSize = MediaQuery.of(context).size;
     var productUser = _loginController.getProductUserById(productId);
     data.productModel = productUser;
-    ProductDetailController.productModel = productUser;
 
     return Container(
       padding: const EdgeInsets.all(0),
