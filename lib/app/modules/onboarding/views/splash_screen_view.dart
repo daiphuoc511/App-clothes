@@ -20,35 +20,11 @@ class SplashScreenView extends StatelessWidget {
                 alignment: Alignment.center,
                 children: <Widget>[
                   Positioned(
-                    bottom: 550,
-                    left: -50,
-                    child: Image.asset(
-                      'assets/images/Deco1.png',
-                      width: size.width * 3,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 150,
-                    left: -550,
-                    child: Image.asset(
-                      'assets/images/Deco1.png',
-                      width: size.width * 2,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: -270,
+                    bottom: 180,
                     left: 0,
                     child: Image.asset(
-                      'assets/images/Deco1.png',
-                      width: size.width * 2,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 70,
-                    left: 60,
-                    child: Image.asset(
-                      'assets/images/Slide1.png',
-                      width: size.width * 0.75,
+                      'assets/images/logo.png',
+                      width: size.width,
                     ),
                   ),
                 ],
