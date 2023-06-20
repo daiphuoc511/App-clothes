@@ -287,8 +287,7 @@ class MainHomeView extends GetView<MainHomeController> {
           const SizedBox(
             height: 20,
           ),
-          _loginController.isAuthenticated.value &&
-                  _loginController.productListBySizeUser.isEmpty == false
+          _loginController.isAuthenticated.value
               ? const Text(
                   'Sản phẩm liên quan',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

@@ -33,6 +33,7 @@ class LoginController extends GetxController {
 
   RxBool isAuthenticated = false.obs;
   RxBool isLogin = true.obs;
+  RxBool isProductBySizeUser = false.obs;
 
   @override
   void onInit() {
@@ -84,6 +85,11 @@ class LoginController extends GetxController {
         for (var item in list) {
           ProductModel productModel = ProductModel.fromJson(Map.from(item));
           productListByUser.add(productModel);
+        }
+        if (list != null || list.isNotEmpty) {
+          isProductBySizeUser.value = true;
+        } else {
+          isProductBySizeUser.value = false;
         }
 
         update();
@@ -139,5 +145,6 @@ class LoginController extends GetxController {
     prefs.remove(KEY_USER_TOKEN);
     productListByUser.clear();
     productListBySizeUser.clear();
+    isProductBySizeUser.value = false;
   }
 }
