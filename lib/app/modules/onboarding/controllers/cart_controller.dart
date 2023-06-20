@@ -200,7 +200,8 @@ class CartController extends GetxController {
       'Authorization': 'Bearer $token'
     };
     http.Response response = await http.delete(
-        Uri.parse('${RemoteConfig.config['ADD_CART']}/$productCartId'),
+        Uri.parse(
+            '${RemoteConfig.config['DELETE_PRODUCT_CART']}/$productCartId'),
         headers: headers);
     if (token != null && token.isNotEmpty) {
       if (response.statusCode == 200) {
