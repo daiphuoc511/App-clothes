@@ -19,16 +19,15 @@ class ProductCartModel {
       this.productModel});
 
   ProductCartModel.fromJson(Map<String, dynamic> json) {
-    productCartId = json['productCartId'] as int;
-    size = json['size'] as String;
-    quantity = json['quantity'] as int;
-    productPrice = json['productPrice'] as int;
-    cartModel = (json['cart'] == null
-        ? null
-        : CartModel.fromJson(json['cart'] as Map<String, dynamic>));
+    productCartId = json['productCartId'];
+    size = json['size'];
+    quantity = json['quantity'];
+    productPrice = json['productPrice'];
+    cartModel =
+        (json['cart'] == null ? null : CartModel.fromJson(json['cart']));
     productModel = (json['product'] == null
         ? null
-        : ProductModel.fromJson(json['product'] as Map<String, dynamic>));
+        : ProductModel.fromJson(json['product']));
   }
 
   Map<String, dynamic> toJson() {

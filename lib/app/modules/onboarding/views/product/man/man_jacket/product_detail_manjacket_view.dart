@@ -108,9 +108,7 @@ class ProductDetailListManJacketView
                     fontSize: 10,
                   ),
                 ))),
-            onTap: () {
-              Get.toNamed(Routes.ORDER);
-            },
+            onTap: () {},
           ),
         ],
       ),

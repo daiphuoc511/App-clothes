@@ -111,9 +111,7 @@ class ProductDetailView extends GetView<MainHomeController> {
                     fontSize: 10,
                   ),
                 ))),
-            onTap: () {
-              Get.toNamed(Routes.ORDER);
-            },
+            onTap: () {},
           ),
         ],
       ),

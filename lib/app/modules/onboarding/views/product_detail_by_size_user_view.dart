@@ -108,9 +108,7 @@ class ProductDetailBySizeUserView extends GetView<LoginController> {
                     fontSize: 10,
                   ),
                 ))),
-            onTap: () {
-              Get.toNamed(Routes.ORDER);
-            },
+            onTap: () {},
           ),
         ],
       ),

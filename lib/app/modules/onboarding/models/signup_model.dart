@@ -17,13 +17,13 @@ class SignupModel {
       this.weight});
 
   SignupModel.fromJson(Map<String, dynamic> json) {
-    name = json['name'] as String;
-    email = json['email'] as String;
-    password = json['password'] as String;
-    birthday = json['birthday'] as String;
-    gender = json['gender'] as int;
-    height = json['height'] as String;
-    weight = json['weight'] as String;
+    name = json['name'];
+    email = json['email'];
+    password = json['password'];
+    birthday = json['birthday'];
+    gender = json['gender'];
+    height = json['height'];
+    weight = json['weight'];
   }
 
   Map<String, dynamic> toJson() {

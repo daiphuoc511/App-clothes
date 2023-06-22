@@ -107,9 +107,7 @@ class ProductDetailListWomanView extends GetView<ProductListWomanController> {
                     fontSize: 10,
                   ),
                 ))),
-            onTap: () {
-              Get.toNamed(Routes.ORDER);
-            },
+            onTap: () {},
           ),
         ],
       ),

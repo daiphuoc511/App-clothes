@@ -31,20 +31,20 @@ class ProductModel {
       this.description});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
-    productId = json['productId'] as int;
-    productName = json['productName'] as String;
-    image = json['image'] as String;
-    price = json['price'] as int;
-    brand = json['brand'] as String;
-    color = json['color'] as String;
-    s = json['s'] as int;
-    m = json['m'] as int;
-    l = json['l'] as int;
-    xl = json['xl'] as int;
-    xxl = json['xxl'] as int;
-    xxxl = json['xxxl'] as int;
-    clothesType = json['clothesType'] as int;
-    description = json['description'] as String;
+    productId = json['productId'];
+    productName = json['productName'];
+    image = json['image'];
+    price = json['price'];
+    brand = json['brand'];
+    color = json['color'];
+    s = json['s'];
+    m = json['m'];
+    l = json['l'];
+    xl = json['xl'];
+    xxl = json['xxl'];
+    xxxl = json['xxxl'];
+    clothesType = json['clothesType'];
+    description = json['description'];
   }
 
   Map<String, dynamic> toJson() {
