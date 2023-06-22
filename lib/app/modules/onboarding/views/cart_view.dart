@@ -203,7 +203,7 @@ class CartView extends GetView<CartController> {
                                           textAlign: TextAlign.center,
                                         ),
                                         actions: <Widget>[
-                                          FlatButton(
+                                          TextButton(
                                             child: const Text(
                                               'Hủy',
                                               style: TextStyle(
@@ -214,7 +214,7 @@ class CartView extends GetView<CartController> {
                                               Navigator.of(context).pop();
                                             },
                                           ),
-                                          FlatButton(
+                                          TextButton(
                                             child: const Text(
                                               'Xác nhận',
                                               style: TextStyle(
