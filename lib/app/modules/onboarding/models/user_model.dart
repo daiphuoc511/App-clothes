@@ -27,19 +27,18 @@ class UserModel {
       this.cartModel});
 
   UserModel.fromJson(Map<String, dynamic> json) {
-    userId = json['userId'] as int;
-    name = json['name'] as String;
-    password = json['password'] as String;
-    avatar = json['avatar'] as String;
-    birthday = json['birthday'] as String;
-    gender = json['gender'] as int;
-    fate = json['fate'] as String;
-    height = json['height'] as String;
-    weight = json['weight'] as String;
-    email = json['email'] as String;
-    cartModel = (json['cart'] == null
-        ? null
-        : CartModel.fromJson(json['cart'] as Map<String, dynamic>));
+    userId = json['userId'];
+    name = json['name'];
+    password = json['password'];
+    avatar = json['avatar'];
+    birthday = json['birthday'];
+    gender = json['gender'];
+    fate = json['fate'];
+    height = json['height'];
+    weight = json['weight'];
+    email = json['email'];
+    cartModel =
+        (json['cart'] == null ? null : CartModel.fromJson(json['cart']));
   }
 
   Map<String, dynamic> toJson() {

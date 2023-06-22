@@ -7,8 +7,8 @@ class CartModel {
   CartModel({this.cartId, this.totalCart});
 
   CartModel.fromJson(Map<String, dynamic> json) {
-    cartId = json['cartId'] as int;
-    totalCart = json['totalCart'] as Float;
+    cartId = json['cartId'];
+    totalCart = json['totalCart'];
   }
 
   Map<String, dynamic> toJson() {

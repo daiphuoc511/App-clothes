@@ -107,9 +107,7 @@ class ProductDetailListManView extends GetView<ProductListManController> {
                     fontSize: 10,
                   ),
                 ))),
-            onTap: () {
-              Get.toNamed(Routes.ORDER);
-            },
+            onTap: () {},
           ),
         ],
       ),

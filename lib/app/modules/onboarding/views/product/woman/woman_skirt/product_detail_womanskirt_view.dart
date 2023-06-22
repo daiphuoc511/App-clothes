@@ -108,9 +108,7 @@ class ProductDetailListWomanSkirtView
                     fontSize: 10,
                   ),
                 ))),
-            onTap: () {
-              Get.toNamed(Routes.ORDER);
-            },
+            onTap: () {},
           ),
         ],
       ),
