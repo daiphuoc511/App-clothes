@@ -174,7 +174,7 @@ class ProfileView extends GetView<LoginController> {
                                   groupValue:
                                       _profileController.selectedGender.value,
                                   onChanged: (value) {
-                                    _signupController
+                                    _profileController
                                         .selectGender(value.toString());
                                     _profileController.profile.gender = 1;
                                   },
@@ -190,7 +190,7 @@ class ProfileView extends GetView<LoginController> {
                                   groupValue:
                                       _profileController.selectedGender.value,
                                   onChanged: (value) {
-                                    _signupController
+                                    _profileController
                                         .selectGender(value.toString());
                                     _profileController.profile.gender = 0;
                                   },
@@ -206,7 +206,7 @@ class ProfileView extends GetView<LoginController> {
                                   groupValue:
                                       _profileController.selectedGender.value,
                                   onChanged: (value) {
-                                    _signupController
+                                    _profileController
                                         .selectGender(value.toString());
                                     _profileController.profile.gender = 2;
                                   },
