@@ -407,7 +407,7 @@ class ProductDetailListManView extends GetView<ProductListManController> {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  'Thêm vào giỏ hàng thành công thành công',
+                  'Thêm vào giỏ hàng thành công',
                   style: TextStyle(
                     color: Colors.white,
                   ),
