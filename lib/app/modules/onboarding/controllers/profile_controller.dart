@@ -107,4 +107,8 @@ class ProfileController extends GetxController {
     return UpdateProfileResponse(
         msg: response.body, status: response.statusCode);
   }
+
+  void selectGender(String gender) {
+    selectedGender.value = gender;
+  }
 }
