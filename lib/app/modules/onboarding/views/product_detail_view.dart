@@ -471,6 +471,8 @@ class ProductDetailView extends GetView<MainHomeController> {
         },
       );
       _cartController.productCartList.clear();
+      _loginController.productListBySizeUser.clear();
+      await _loginController.fetchProductBySizeUser();
       await _cartController.getCartByUser();
     }
   }
