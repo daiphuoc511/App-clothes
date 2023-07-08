@@ -419,6 +419,8 @@ class ProductDetailListWomanTshirtView
       );
     }
     _cartController.productCartList.clear();
+    _loginController.productListBySizeUser.clear();
+    await _loginController.fetchProductBySizeUser();
     await _cartController.getCartByUser();
   }
 }

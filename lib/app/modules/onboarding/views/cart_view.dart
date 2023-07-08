@@ -231,8 +231,13 @@ class CartView extends GetView<CartController> {
                                                           .productCartId);
                                               _cartController.productCartList
                                                   .clear();
+                                              _loginController
+                                                  .productListBySizeUser
+                                                  .clear();
                                               await _cartController
                                                   .getCartByUser();
+                                              await _loginController
+                                                  .fetchProductBySizeUser();
                                             },
                                           ),
                                         ],
